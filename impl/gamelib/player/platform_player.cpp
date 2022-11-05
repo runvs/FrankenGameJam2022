@@ -1,6 +1,7 @@
 #include "platform_player.hpp"
-#include <level/user_data_entries.hpp>
+#include <audio/logging_sound.hpp>
 #include <game_interface.hpp>
+#include <level/user_data_entries.hpp>
 #include <math_helper.hpp>
 
 Player::Player(std::shared_ptr<jt::Box2DWorldInterface> world)
@@ -35,6 +36,17 @@ void Player::doCreate()
     fixtureDef.shape = &polygonShape;
     auto footSensorFixture = m_physicsObject->getB2Body()->CreateFixture(&fixtureDef);
     footSensorFixture->SetUserData((void*)g_userDataPlayerFeetID);
+
+    std::shared_ptr<jt::SoundInterface> hit1
+        = getGame()->audio().addTemporarySound("assets/sound/player_hit1.ogg");
+    std::shared_ptr<jt::SoundInterface> hit2
+        = getGame()->audio().addTemporarySound("assets/sound/player_hit2.ogg");
+    std::shared_ptr<jt::SoundInterface> hit3
+        = getGame()->audio().addTemporarySound("assets/sound/player_hit3.ogg");
+    m_soundHit = getGame()->audio().addTemporarySoundGroup(
+        std::vector<std::shared_ptr<jt::SoundInterface>> { hit1, hit2, hit3 });
+    m_soundJump = getGame()->audio().addTemporarySound("assets/sound/player_jump.ogg");
+    m_soundPickup = getGame()->audio().addTemporarySound("assets/sound/player_pickup.ogg");
 }
 
 std::shared_ptr<jt::Animation> Player::getAnimation() { return m_animation; }
@@ -144,7 +156,7 @@ void Player::handleMovement(float const elapsed)
 
     if (m_wantsToJumpTimer >= 0.0f) {
         if (canJump()) {
-
+            m_soundJump->play();
             m_lastJumpTimer = jumpDeadTime;
             v.y = jumpInitialVelocity;
         }

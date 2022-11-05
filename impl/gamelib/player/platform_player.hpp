@@ -2,6 +2,7 @@
 #define JAMTEMPLATE_DEMO_PLATFORM_PLAYER
 
 #include <animation.hpp>
+#include <audio/sound.hpp>
 #include <box2dwrapper/box2d_object.hpp>
 #include <game_object.hpp>
 #include <particle_system.hpp>
@@ -34,6 +35,10 @@ private:
     float m_walkParticlesTimer = 0.0f;
     std::weak_ptr<jt::ParticleSystem<jt::Shape, 50>> m_walkParticles;
     std::weak_ptr<jt::ParticleSystem<jt::Shape, 50>> m_postJumpParticles;
+
+    std::shared_ptr<jt::SoundInterface> m_soundJump;
+    std::shared_ptr<jt::SoundInterface> m_soundHit;
+    std::shared_ptr<jt::SoundInterface> m_soundPickup;
 
     bool m_isTouchingGround { false };
     bool m_wasTouchingGroundLastFrame { false };
