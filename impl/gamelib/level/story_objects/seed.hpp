@@ -11,6 +11,7 @@ public:
 
 private:
     jt::Vector2f m_pos { 0.0f, 0.0f };
+    // TODO switch to seed graphic
     std::shared_ptr<jt::Shape> m_shape;
 
     void doCreate() override;
