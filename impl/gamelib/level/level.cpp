@@ -221,6 +221,14 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_keycard->setGameInstance(getGame());
                 m_keycard->create();
             }
+        } else if (sr.name == "door") {
+            if (GP::getPersistentValue("keycard_1") != 1
+                || GP::getPersistentValue("keycard_2") != 1) {
+                getGame()->logger().info("door created", { "story_objects" });
+                m_door = std::make_shared<Door>(m_world.lock(), sr.position);
+                m_door->setGameInstance(getGame());
+                m_door->create();
+            }
         }
     }
 }
@@ -262,6 +270,12 @@ void Level::doUpdate(float const elapsed)
             m_keycard.reset();
         }
     }
+    if (m_door) {
+        m_door->update(elapsed);
+        if (!m_door->isAlive()) {
+            m_door.reset();
+        }
+    }
 }
 
 void Level::doDraw() const
@@ -291,6 +305,9 @@ void Level::doDraw() const
     }
     if (m_keycard) {
         m_keycard->draw();
+    }
+    if (m_door) {
+        m_door->draw();
     }
 }
 

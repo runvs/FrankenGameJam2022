@@ -1,6 +1,7 @@
 #ifndef JAMTEMPLATE_LEVEL_HPP
 #define JAMTEMPLATE_LEVEL_HPP
 
+#include "level/story_objects/door.hpp"
 #include "level/story_objects/keycard.hpp"
 #include "level/story_objects/seed_bed.hpp"
 #include <box2dwrapper/box2d_object.hpp>
@@ -59,6 +60,7 @@ private:
     std::shared_ptr<SeedBed> m_seedbed { nullptr };
     std::shared_ptr<ObstacleTree> m_obstacle_tree { nullptr };
     std::shared_ptr<Keycard> m_keycard { nullptr };
+    std::shared_ptr<Door> m_door { nullptr };
 
     void loadLevelSettings(jt::tilemap::TilesonLoader& loader);
     void loadLevelTileLayer(jt::tilemap::TilesonLoader& loader);
