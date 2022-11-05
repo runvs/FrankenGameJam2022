@@ -88,7 +88,7 @@
                  "rotation":0,
                  "visible":true,
                  "width":8,
-                 "x":264,
+                 "x":256,
                  "y":248
                 }, 
                 {
@@ -234,6 +234,11 @@
                          "name":"bg_r",
                          "type":"int",
                          "value":156
+                        }, 
+                        {
+                         "name":"era",
+                         "type":"string",
+                         "value":"pa"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -261,7 +266,7 @@
                         {
                          "name":"next_level",
                          "type":"string",
-                         "value":"level_1.json"
+                         "value":"level_2_pa.json"
                         }],
                  "rotation":0,
                  "visible":true,
