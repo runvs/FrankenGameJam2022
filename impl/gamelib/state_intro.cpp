@@ -32,6 +32,13 @@ void StateIntro::doInternalCreate()
 void StateIntro::doInternalUpdate(float elapsed)
 {
     m_sprite->update(elapsed);
+    if (getAge() > 0.1f) {
+        if (getGame()->input().keyboard()->justPressed(jt::KeyCode::Space)
+            || getGame()->input().keyboard()->justPressed(jt::KeyCode::Enter)
+            || getGame()->input().keyboard()->justPressed(jt::KeyCode::Escape)) {
+            getGame()->stateManager().switchState(std::make_shared<StateMenu>());
+        }
+    }
     if (getAge() >= 1.7) {
         getGame()->stateManager().switchState(std::make_shared<StateMenu>());
     }
