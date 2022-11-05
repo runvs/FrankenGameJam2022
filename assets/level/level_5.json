@@ -210,7 +210,7 @@
                         {
                          "name":"positions",
                          "type":"string",
-                         "value":"f1,f2,f3,f4,f5,f6"
+                         "value":"f1,f2,f3"
                         }, 
                         {
                          "name":"velocity",
@@ -281,13 +281,68 @@
                 {
                  "class":"",
                  "height":8,
-                 "id":81,
-                 "name":"f6",
+                 "id":82,
+                 "name":"platform",
+                 "properties":[
+                        {
+                         "name":"positions",
+                         "type":"string",
+                         "value":"f3,f4,f5"
+                        }, 
+                        {
+                         "name":"velocity",
+                         "type":"float",
+                         "value":30
+                        }],
                  "rotation":0,
                  "visible":true,
-                 "width":8,
-                 "x":128,
-                 "y":304
+                 "width":32,
+                 "x":71.6666666666667,
+                 "y":107.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":83,
+                 "name":"platform",
+                 "properties":[
+                        {
+                         "name":"positions",
+                         "type":"string",
+                         "value":"f5,f1,f2"
+                        }, 
+                        {
+                         "name":"velocity",
+                         "type":"float",
+                         "value":30
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":168.666666666667,
+                 "y":217.333333333333
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":84,
+                 "name":"platform",
+                 "properties":[
+                        {
+                         "name":"positions",
+                         "type":"string",
+                         "value":"r1,r2"
+                        }, 
+                        {
+                         "name":"velocity",
+                         "type":"float",
+                         "value":30
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":464.333333333333,
+                 "y":380.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -480,7 +535,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":82,
+ "nextobjectid":85,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
