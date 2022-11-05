@@ -220,8 +220,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":32,
-                 "x":71.6666666666667,
-                 "y":245.666666666667
+                 "x":72,
+                 "y":248
                 }, 
                 {
                  "class":"",
@@ -297,8 +297,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":32,
-                 "x":71.6666666666667,
-                 "y":107.666666666667
+                 "x":72,
+                 "y":104
                 }, 
                 {
                  "class":"",
@@ -319,8 +319,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":32,
-                 "x":168.666666666667,
-                 "y":217.333333333333
+                 "x":168,
+                 "y":216
                 }, 
                 {
                  "class":"",
@@ -341,8 +341,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":32,
-                 "x":464.333333333333,
-                 "y":380.666666666667
+                 "x":464,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -509,7 +509,7 @@
                         {
                          "name":"next_level",
                          "type":"string",
-                         "value":"level_6.json"
+                         "value":"level_6_pa.json"
                         }],
                  "rotation":0,
                  "visible":true,

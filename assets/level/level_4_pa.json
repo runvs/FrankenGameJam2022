@@ -72,28 +72,6 @@
                 {
                  "class":"",
                  "height":8,
-                 "id":45,
-                 "name":"bee",
-                 "properties":[
-                        {
-                         "name":"distance_in_tiles",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
-                         "name":"movement",
-                         "type":"string",
-                         "value":"horizontal"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":8,
-                 "x":176,
-                 "y":80
-                }, 
-                {
-                 "class":"",
-                 "height":8,
                  "id":55,
                  "name":"bee",
                  "properties":[
