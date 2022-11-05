@@ -109,7 +109,6 @@ void StateGame::endGame()
 
 void StateGame::handleCameraScrolling(float const elapsed)
 {
-
     auto ps = m_player->getPosOnScreen();
 
     float const rightMargin = 150.0f;
@@ -145,7 +144,11 @@ void StateGame::handleCameraScrolling(float const elapsed)
             cam.move(jt::Vector2f { 0.0f, scrollSpeed * elapsed });
         }
     }
-
+    clampCameraPositionToLevel();
+}
+void StateGame::clampCameraPositionToLevel() const
+{
+    auto& cam = getGame()->gfx().camera();
     // clamp camera to level bounds
     auto offset = cam.getCamOffset();
     if (offset.x < 0) {
@@ -155,12 +158,12 @@ void StateGame::handleCameraScrolling(float const elapsed)
         offset.y = 0;
     }
     auto const levelWidth = m_level->getLevelSizeInPixel().x;
-    auto const maxCamPositionX = levelWidth - screenWidth;
+    auto const maxCamPositionX = levelWidth - GP::GetScreenSize().x;
     if (offset.x > maxCamPositionX) {
         offset.x = maxCamPositionX;
     }
     auto const levelHeight = m_level->getLevelSizeInPixel().y;
-    auto const maxCamPositionY = levelHeight - screenHeight;
+    auto const maxCamPositionY = levelHeight - GP::GetScreenSize().y;
     if (offset.y > maxCamPositionY) {
         offset.y = maxCamPositionY;
     }
@@ -183,6 +186,8 @@ void StateGame::createPlayer()
     m_player->setPosition(m_level->getPlayerStart(m_targetId));
     m_player->setLevelSize(m_level->getLevelSizeInPixel());
     add(m_player);
+    getGame()->gfx().camera().setCamOffset(m_player->getPosition() - GP::GetScreenSize() * 0.5f);
+    clampCameraPositionToLevel();
 
     createPlayerWalkParticles();
     createPlayerJumpParticleSystem();
