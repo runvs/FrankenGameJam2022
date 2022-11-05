@@ -11,8 +11,8 @@ class Exit : public jt::GameObject {
 public:
     explicit Exit(jt::tilemap::InfoRect const& rect);
 
-    void checkIfPlayerIsInExit(
-        jt::Vector2f const& playerPosition, std::function<void(std::string const&)> callback);
+    bool checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
+        std::function<void(std::string const&, std::string const&)> callback);
 
 private:
     jt::tilemap::InfoRect m_info {};

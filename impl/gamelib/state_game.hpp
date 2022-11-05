@@ -3,11 +3,11 @@
 
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_state.hpp>
-#include <memory>
-#include <vector>
 #include <level/level.hpp>
 #include <player/platform_player.hpp>
 #include <screeneffects/vignette.hpp>
+#include <memory>
+#include <vector>
 
 // fwd decls
 namespace jt {
@@ -20,12 +20,14 @@ class Hud;
 
 class StateGame : public jt::GameState {
 public:
-    explicit StateGame(std::string const& levelName = "platformer_0_0.json");
+    StateGame(
+        std::string const& levelName = "platformer_0_0.json", std::string const& targetId = "0");
 
 private:
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
 
     std::string m_levelName { "" };
+    std::string m_targetId { "0" };
     std::shared_ptr<Level> m_level { nullptr };
     std::shared_ptr<Player> m_player { nullptr };
     std::shared_ptr<jt::Vignette> m_vignette { nullptr };

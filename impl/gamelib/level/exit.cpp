@@ -6,8 +6,7 @@ Exit::Exit(jt::tilemap::InfoRect const& rect) { m_info = rect; }
 
 void Exit::doCreate()
 {
-    m_sprite
-        = std::make_shared<jt::Sprite>("assets/level/exit.png", textureManager());
+    m_sprite = std::make_shared<jt::Sprite>("assets/level/exit.png", textureManager());
 
     m_sprite->setPosition(m_info.position);
 }
@@ -16,13 +15,20 @@ void Exit::doUpdate(float const elapsed) { m_sprite->update(elapsed); }
 
 void Exit::doDraw() const { m_sprite->draw(renderTarget()); }
 
-void Exit::checkIfPlayerIsInExit(
-    jt::Vector2f const& playerPosition, std::function<void(std::string const&)> callback)
+bool Exit::checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
+    std::function<void(std::string const&, std::string const&)> callback)
 {
     jt::Rectf const exitRect { m_info.position.x, m_info.position.y, m_info.size.x, m_info.size.y };
     if (jt::MathHelper::checkIsIn(exitRect, playerPosition)) {
         auto const nextLevelName = m_info.properties.strings["next_level"];
+        std::string nextLevelTargetId = "0";
+        if (m_info.properties.strings.count("target_id") == 1) {
+            nextLevelTargetId = m_info.properties.strings.at("target_id");
+        }
         getGame()->logger().info("switch to next level: " + nextLevelName, { "platformer" });
-        callback(nextLevelName);
+        callback(nextLevelName, nextLevelTargetId);
+        return true;
     }
+
+    return false;
 }

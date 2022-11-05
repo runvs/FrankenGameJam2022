@@ -14,7 +14,11 @@
 #include <tweens/tween_position.hpp>
 #include <tweens/tween_rotation.hpp>
 
-StateGame::StateGame(std::string const& levelName) { m_levelName = levelName; }
+StateGame::StateGame(std::string const& levelName, std::string const& targetId)
+{
+    m_levelName = levelName;
+    m_targetId = targetId;
+}
 
 void StateGame::doInternalCreate()
 {
@@ -43,13 +47,12 @@ void StateGame::doInternalCreate()
 void StateGame::loadLevel()
 {
     m_level = std::make_shared<Level>("assets/level/" + m_levelName, m_world);
-    
+
     add(m_level);
 }
 
 void StateGame::doInternalUpdate(float const elapsed)
 {
-
     if (!m_ending && !getGame()->stateManager().getTransition()->isInProgress()) {
         m_world->step(elapsed, GP::PhysicVelocityIterations(), GP::PhysicPositionIterations());
 
@@ -57,12 +60,12 @@ void StateGame::doInternalUpdate(float const elapsed)
             endGame();
         }
         m_level->checkIfPlayerIsInKillbox(m_player->getPosition(), [this]() { endGame(); });
-        m_level->checkIfPlayerIsInExit(
-            m_player->getPosition(), [this](std::string const& newLevelName) {
+        m_level->checkIfPlayerIsInExit(m_player->getPosition(),
+            [this](std::string const& newLevelName, std::string const& newLevelTargetId) {
                 if (!m_ending) {
                     m_ending = true;
                     getGame()->stateManager().switchState(
-                        std::make_shared<StateGame>(newLevelName));
+                        std::make_shared<StateGame>(newLevelName, newLevelTargetId));
                 }
             });
 
@@ -145,7 +148,7 @@ void StateGame::doInternalDraw() const
 void StateGame::createPlayer()
 {
     m_player = std::make_shared<Player>(m_world);
-    m_player->setPosition(m_level->getPlayerStart());
+    m_player->setPosition(m_level->getPlayerStart(m_targetId));
     m_player->setLevelSize(m_level->getLevelSizeInPixel());
     add(m_player);
 

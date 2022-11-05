@@ -1,13 +1,13 @@
 #ifndef JAMTEMPLATE_LEVEL_HPP
 #define JAMTEMPLATE_LEVEL_HPP
 
+#include <box2dwrapper/box2d_object.hpp>
+#include <box2dwrapper/box2d_world_interface.hpp>
 #include <enemies/bee.hpp>
+#include <game_object.hpp>
 #include <level/exit.hpp>
 #include <level/killbox.hpp>
 #include <level/moving_platform.hpp>
-#include <box2dwrapper/box2d_object.hpp>
-#include <box2dwrapper/box2d_world_interface.hpp>
-#include <game_object.hpp>
 #include <shape.hpp>
 #include <tilemap/tile_layer.hpp>
 #include <tilemap/tileson_loader.hpp>
@@ -16,13 +16,13 @@
 class Level : public jt::GameObject {
 public:
     Level(std::string const& fileName, std::weak_ptr<jt::Box2DWorldInterface> world);
-    jt::Vector2f getPlayerStart() const;
+    jt::Vector2f getPlayerStart(std::string const& id) const;
 
     void checkIfPlayerIsInKillbox(
         jt::Vector2f const& playerPosition, std::function<void(void)> callback) const;
 
-    void checkIfPlayerIsInExit(
-        jt::Vector2f const& playerPosition, std::function<void(std::string const&)> callback);
+    void checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
+        std::function<void(std::string const&, std::string const&)> callback);
 
     jt::Vector2f getLevelSizeInPixel() const;
 
@@ -37,8 +37,7 @@ private:
 
     std::vector<std::shared_ptr<jt::Box2DObject>> m_colliders {};
     std::shared_ptr<jt::tilemap::TileLayer> m_tileLayerGround { nullptr };
-    jt::Vector2f m_playerStart { 0.0f, 0.0f };
-
+    std::map<std::string, jt::Vector2f> m_startPositions { { "0", { 0.0f, 0.0f } } };
     // TODO create enemy interface/base class
     std::vector<std::shared_ptr<Bee>> m_bees {};
 

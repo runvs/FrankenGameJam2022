@@ -2,11 +2,11 @@
 #include <enemies/movement/enemy_movement_horizontal.hpp>
 #include <enemies/movement/enemy_movement_vertical.hpp>
 #include <game_interface.hpp>
+#include <game_properties.hpp>
 #include <math_helper.hpp>
 #include <strutils.hpp>
 #include <tilemap/tileson_loader.hpp>
 #include <Box2D/Box2D.h>
-#include <game_properties.hpp>
 
 Level::Level(std::string const& fileName, std::weak_ptr<jt::Box2DWorldInterface> world)
 {
@@ -166,7 +166,12 @@ void Level::loadLevelSettings(jt::tilemap::TilesonLoader& loader)
                     static_cast<uint8_t>(info.properties.ints.at("bg_g")),
                     static_cast<uint8_t>(info.properties.ints.at("bg_b")) });
         } else if (info.name == "player_start") {
-            m_playerStart = info.position;
+            std::string id = "0";
+            if (info.properties.strings.count("id") == 1) {
+                id = info.properties.strings.at("id");
+            }
+            m_startPositions[id] = info.position;
+
         } else if (info.name == "exit") {
             auto exit = Exit { info };
             exit.setGameInstance(getGame());
@@ -212,7 +217,7 @@ void Level::doDraw() const
     }
 }
 
-jt::Vector2f Level::getPlayerStart() const { return m_playerStart; }
+jt::Vector2f Level::getPlayerStart(std::string const& id) const { return m_startPositions.at(id); }
 
 void Level::checkIfPlayerIsInKillbox(
     jt::Vector2f const& playerPosition, std::function<void(void)> callback) const
@@ -222,12 +227,13 @@ void Level::checkIfPlayerIsInKillbox(
     }
 }
 
-void Level::checkIfPlayerIsInExit(
-    jt::Vector2f const& playerPosition, std::function<void(std::string const&)> callback)
+void Level::checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
+    std::function<void(std::string const&, std::string const&)> callback)
 {
     for (auto& exit : m_exits) {
-        exit.checkIfPlayerIsInExit(playerPosition, callback);
-        break;
+        if (exit.checkIfPlayerIsInExit(playerPosition, callback)) {
+            break;
+        }
     }
 }
 
