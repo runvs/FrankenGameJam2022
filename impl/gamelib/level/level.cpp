@@ -16,10 +16,10 @@ Level::Level(std::string const& fileName, std::weak_ptr<jt::Box2DWorldInterface>
 
 void Level::doCreate()
 {
-    m_background = std::make_shared<jt::Shape>();
-    m_background->makeRect(GP::GetScreenSize(), textureManager());
-
-    m_background->setCamMovementFactor(0.0f);
+    //    m_background = std::make_shared<jt::Shape>();
+    //    m_background->makeRect(GP::GetScreenSize(), textureManager());
+    //
+    //    m_background->setCamMovementFactor(0.0f);
 
     jt::tilemap::TilesonLoader loader { getGame()->cache().getTilemapCache(), m_fileName };
 
@@ -32,6 +32,10 @@ void Level::doCreate()
     loadEnemies(loader);
 
     loadStoryObjects(loader);
+
+    m_background = std::make_shared<ParallaxBackground>(m_levelEra);
+    m_background->setGameInstance(getGame());
+    m_background->create();
 }
 
 void Level::loadEnemies(jt::tilemap::TilesonLoader& loader)
@@ -167,10 +171,10 @@ void Level::loadLevelSettings(jt::tilemap::TilesonLoader& loader)
     for (auto const& info : settings) {
 
         if (info.name == "map_settings") {
-            m_background->setColor(
-                jt::Color { static_cast<uint8_t>(info.properties.ints.at("bg_r")),
-                    static_cast<uint8_t>(info.properties.ints.at("bg_g")),
-                    static_cast<uint8_t>(info.properties.ints.at("bg_b")) });
+            m_levelEra = "cp";
+            if (info.properties.strings.count("era") == 1) {
+                m_levelEra = info.properties.strings.at("era");
+            }
         } else if (info.name == "player_start") {
             std::string id = "0";
             if (info.properties.strings.count("id") == 1) {
@@ -245,7 +249,7 @@ void Level::doUpdate(float const elapsed)
 
 void Level::doDraw() const
 {
-    m_background->draw(renderTarget());
+    m_background->draw();
     m_tileLayerGround->draw(renderTarget());
     for (auto const& exit : m_exits) {
         exit.draw();
