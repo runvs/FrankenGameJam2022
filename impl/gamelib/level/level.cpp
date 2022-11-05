@@ -29,7 +29,13 @@ void Level::doCreate()
     loadLevelCollisions(loader);
     loadLevelKillboxes(loader);
     loadMovingPlatforms(loader);
+    loadEnemies(loader);
 
+    loadStoryObjects(loader);
+}
+
+void Level::loadEnemies(jt::tilemap::TilesonLoader& loader)
+{
     auto const enemies = loader.loadObjectsFromLayer("enemies");
     for (auto const& enemy : enemies) {
         if (enemy.name == "bee") {
@@ -181,6 +187,19 @@ void Level::loadLevelSettings(jt::tilemap::TilesonLoader& loader)
     }
 }
 
+void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
+{
+    auto storyObjects = loader.loadObjectsFromLayer("story_objects");
+
+    for (auto const& sr : storyObjects) {
+        if (sr.name == "seed") {
+            m_seed = std::make_shared<Seed>(sr.position);
+            m_seed->setGameInstance(getGame());
+            m_seed->create();
+        }
+    }
+}
+
 void Level::doUpdate(float const elapsed)
 {
     m_background->update(elapsed);
@@ -196,6 +215,10 @@ void Level::doUpdate(float const elapsed)
     }
     for (auto& kb : m_killboxes) {
         kb->update(elapsed);
+    }
+
+    if (m_seed) {
+        m_seed->update(elapsed);
     }
 }
 
@@ -214,6 +237,9 @@ void Level::doDraw() const
     }
     for (auto const& kb : m_killboxes) {
         kb->draw();
+    }
+    if (m_seed) {
+        m_seed->draw();
     }
 }
 
@@ -238,3 +264,10 @@ void Level::checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
 }
 
 jt::Vector2f Level::getLevelSizeInPixel() const { return m_levelSizeInPixel; }
+
+void Level::checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition)
+{
+    if (m_seed) {
+        m_seed->checkIfPlayerIsOver(playerPosition);
+    }
+}

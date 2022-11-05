@@ -4,6 +4,7 @@
 #include <color/color.hpp>
 #include <color/palette.hpp>
 #include <vector.hpp>
+#include <map>
 #include <string>
 
 class GP {
@@ -20,7 +21,7 @@ public:
     }
 
     static jt::Vector2f GetWindowSize() { return jt::Vector2f { 1200, 800 }; }
-    static float GetZoom() { return 2.0f; }
+    static float GetZoom() { return 3.0f; }
     static jt::Vector2f GetScreenSize() { return GetWindowSize() * (1.0f / GetZoom()); }
 
     static jt::Color PaletteBackground() { return GP::getPalette().getColor(5); }
@@ -34,6 +35,15 @@ public:
     static int PhysicVelocityIterations();
     static int PhysicPositionIterations();
     static jt::Vector2f PlayerSize();
+
+    static int getPersistentValue(std::string const& key);
+
+    static void setPersistentValue(std::string const& key, int value);
+
+    static void resetAllPersistentValues();
+
+private:
+    static std::map<std::string, int> m_persistentValues;
 };
 
 #endif

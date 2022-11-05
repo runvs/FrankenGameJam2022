@@ -140,12 +140,34 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"story_objects",
+         "objects":[
+                {
+                 "class":"",
+                 "height":8,
+                 "id":7,
+                 "name":"seedbed",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":208,
+                 "y":240
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":6,
+ "nextlayerid":5,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.0",
+ "tiledversion":"1.9.2",
  "tileheight":8,
  "tilesets":[
         {

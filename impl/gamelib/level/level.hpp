@@ -8,6 +8,7 @@
 #include <level/exit.hpp>
 #include <level/killbox.hpp>
 #include <level/moving_platform.hpp>
+#include <level/story_objects/seed.hpp>
 #include <shape.hpp>
 #include <tilemap/tile_layer.hpp>
 #include <tilemap/tileson_loader.hpp>
@@ -23,6 +24,8 @@ public:
 
     void checkIfPlayerIsInExit(jt::Vector2f const& playerPosition,
         std::function<void(std::string const&, std::string const&)> callback);
+
+    void checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition);
 
     jt::Vector2f getLevelSizeInPixel() const;
 
@@ -47,12 +50,18 @@ private:
 
     std::vector<std::shared_ptr<MovingPlatform>> m_movingPlatforms {};
 
+    // story objects
+    std::shared_ptr<Seed> m_seed { nullptr };
+
     void loadLevelSettings(jt::tilemap::TilesonLoader& loader);
     void loadLevelTileLayer(jt::tilemap::TilesonLoader& loader);
     void loadLevelCollisions(jt::tilemap::TilesonLoader& loader);
     void loadLevelKillboxes(jt::tilemap::TilesonLoader& loader);
     void loadLevelSize(jt::tilemap::TilesonLoader const& loader);
     void loadMovingPlatforms(jt::tilemap::TilesonLoader& loader);
+    void loadEnemies(jt::tilemap::TilesonLoader& loader);
+
+    void loadStoryObjects(jt::tilemap::TilesonLoader& loader);
 };
 
 #endif // JAMTEMPLATE_LEVEL_HPP
