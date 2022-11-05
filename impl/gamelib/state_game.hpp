@@ -21,8 +21,7 @@ class Hud;
 
 class StateGame : public jt::GameState {
 public:
-    StateGame(
-        std::string const& levelName = "platformer_0_0.json", std::string const& targetId = "0");
+    StateGame(std::string const& levelName = "level_0.json", std::string const& targetId = "0");
 
 private:
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
