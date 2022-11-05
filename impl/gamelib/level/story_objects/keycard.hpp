@@ -1,17 +1,18 @@
-#ifndef JAMTEMPLATE_SEED_HPP
-#define JAMTEMPLATE_SEED_HPP
+#ifndef JAMTEMPLATE_KEYCARD_HPP
+#define JAMTEMPLATE_KEYCARD_HPP
 
 #include "shape.hpp"
 #include <game_object.hpp>
 
-class Seed : public jt::GameObject {
+class Keycard : public jt::GameObject {
 public:
-    explicit Seed(jt::Vector2f const& pos);
+    Keycard(jt::Vector2f const& pos, std::string const& name);
     void checkIfPlayerIsOver(jt::Vector2f const& playerPosition);
 
 private:
     jt::Vector2f m_pos { 0.0f, 0.0f };
-    // TODO switch to seed graphic
+    std::string m_name { "" };
+    // TODO switch to keycard graphic
     std::shared_ptr<jt::Shape> m_shape;
 
     void doCreate() override;
@@ -19,4 +20,4 @@ private:
     void doDraw() const override;
 };
 
-#endif // JAMTEMPLATE_SEED_HPP
+#endif // JAMTEMPLATE_KEYCARD_HPP
