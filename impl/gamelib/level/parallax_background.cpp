@@ -1,5 +1,6 @@
 #include "parallax_background.hpp"
 #include <game_interface.hpp>
+#include <game_properties.hpp>
 #include <screeneffects/screen_wrap.hpp>
 
 ParallaxBackground::ParallaxBackground(std::string era)
@@ -49,6 +50,8 @@ void ParallaxBackground::doCreate()
         m_layer3_2->setCamMovementFactor(jt::Vector2f { 0.5f, 0.0f });
         m_layer4_2->setCamMovementFactor(jt::Vector2f { 0.8f, 0.0f });
         m_layer5_2->setCamMovementFactor(jt::Vector2f { 0.8f, 0.0f });
+
+        m_layer3_1->setScreenSizeHint(GP::GetScreenSize());
     }
 }
 

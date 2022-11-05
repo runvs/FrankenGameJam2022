@@ -40,7 +40,7 @@ void jt::WindParticles::doUpdate(float const elapsed)
         //        float const f =
         p += windSpeed * elapsed * m_windSpeed * m_factors.at(i);
         s->setPosition(p);
-        jt::wrapOnScreen(*s.get());
+        jt::wrapOnScreen(*s.get(), 0);
         s->update(elapsed);
     }
 }
