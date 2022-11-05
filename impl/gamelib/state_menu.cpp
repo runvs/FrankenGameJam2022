@@ -23,6 +23,7 @@
 
 void StateMenu::doInternalCreate()
 {
+    GP::resetAllPersistentValues();
     createMenuText();
     createShapes();
     createVignette();
