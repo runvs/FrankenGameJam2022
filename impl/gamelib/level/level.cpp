@@ -199,13 +199,27 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_seed->setGameInstance(getGame());
                 m_seed->create();
             }
-        }
-        if (sr.name == "obstacle_tree") {
+
+        } else if (sr.name == "seedbed") {
+            if (GP::getPersistentValue("seedbed") == 0) {
+                getGame()->logger().info("seedbed created", { "story_objects" });
+                m_seedbed = std::make_shared<SeedBed>(sr.position);
+                m_seedbed->setGameInstance(getGame());
+                m_seedbed->create();
+            }
+        } else if (sr.name == "obstacle_tree") {
             if (GP::getPersistentValue("seed") != 0) {
                 getGame()->logger().info("tree created", { "story_objects" });
                 m_obstacle_tree = std::make_shared<ObstacleTree>(m_world.lock(), sr.position);
                 m_obstacle_tree->setGameInstance(getGame());
                 m_obstacle_tree->create();
+            }
+        } else if (strutil::starts_with(sr.name, "keycard")) {
+            if (GP::getPersistentValue(sr.name) != 0) {
+                getGame()->logger().info("'" + sr.name + "' created", { "story_objects" });
+                m_keycard = std::make_shared<Keycard>(sr.position, sr.name);
+                m_keycard->setGameInstance(getGame());
+                m_keycard->create();
             }
         }
     }
@@ -235,10 +249,17 @@ void Level::doUpdate(float const elapsed)
         }
     }
 
+    if (m_seedbed) {
+        m_seedbed->update(elapsed);
+    }
+
     if (m_obstacle_tree) {
         m_obstacle_tree->update(elapsed);
-        if (!m_obstacle_tree->isAlive()) {
-            m_obstacle_tree.reset();
+    }
+    if (m_keycard) {
+        m_keycard->update(elapsed);
+        if (!m_keycard->isAlive()) {
+            m_keycard.reset();
         }
     }
 }
@@ -262,8 +283,14 @@ void Level::doDraw() const
     if (m_seed) {
         m_seed->draw();
     }
+    if (m_seedbed) {
+        m_seedbed->draw();
+    }
     if (m_obstacle_tree) {
         m_obstacle_tree->draw();
+    }
+    if (m_keycard) {
+        m_keycard->draw();
     }
 }
 
@@ -293,5 +320,11 @@ void Level::checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition)
 {
     if (m_seed) {
         m_seed->checkIfPlayerIsOver(playerPosition);
+    }
+    if (m_seedbed) {
+        m_seedbed->checkIfPlayerIsOver(playerPosition);
+    }
+    if (m_keycard) {
+        m_keycard->checkIfPlayerIsOver(playerPosition);
     }
 }
