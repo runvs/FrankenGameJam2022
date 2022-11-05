@@ -42,12 +42,13 @@ void StateGame::doInternalCreate()
 
 void StateGame::loadLevel()
 {
-    m_level = std::make_shared<Level>("assets/test/integration/demo/" + m_levelName, m_world);
+    m_level = std::make_shared<Level>("assets/level_data/" + m_levelName, m_world);
     add(m_level);
 }
 
 void StateGame::doInternalUpdate(float const elapsed)
 {
+
     if (!m_ending && !getGame()->stateManager().getTransition()->isInProgress()) {
         m_world->step(elapsed, GP::PhysicVelocityIterations(), GP::PhysicPositionIterations());
 

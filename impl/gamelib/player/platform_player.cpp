@@ -16,7 +16,7 @@ void Player::doCreate()
 {
     m_animation = std::make_shared<jt::Animation>();
 
-    m_animation->loadFromJson("assets/test/integration/demo/hero_8x8.json", textureManager());
+    m_animation->loadFromJson("assets/player/hero_8x8.json", textureManager());
     m_animation->play("right");
     m_animation->setOffset(jt::OffsetMode::CENTER);
 

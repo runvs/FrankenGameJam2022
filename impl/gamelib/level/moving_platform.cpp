@@ -43,11 +43,11 @@ void MovingPlatform::doCreate()
     //    m_physicsObject->setVelocity(m_currentVelocity);
 
     m_spriteL = std::make_shared<jt::Sprite>(
-        "assets/test/integration/demo/platform_l.png", textureManager());
+        "assets/level/platform_l.png", textureManager());
     m_spriteM = std::make_shared<jt::Sprite>(
-        "assets/test/integration/demo/platform_m.png", textureManager());
+        "assets/level/platform_m.png", textureManager());
     m_spriteR = std::make_shared<jt::Sprite>(
-        "assets/test/integration/demo/platform_r.png", textureManager());
+        "assets/level/platform_r.png", textureManager());
 }
 
 bool MovingPlatform::moveFromTo(
