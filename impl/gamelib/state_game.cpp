@@ -25,9 +25,7 @@ void StateGame::doInternalCreate()
     m_background->setColor(GP::PaletteBackground());
     m_background->setIgnoreCamMovement(true);
     m_background->update(0.0f);
-
-    createPlayer();
-
+    
     m_vignette = std::make_shared<jt::Vignette>(GP::GetScreenSize());
     add(m_vignette);
     m_hud = std::make_shared<Hud>();
@@ -35,12 +33,6 @@ void StateGame::doInternalCreate()
 
     // StateGame will call drawObjects itself.
     setAutoDraw(false);
-}
-
-void StateGame::createPlayer()
-{
-    m_player = std::make_shared<Player>(m_world, *this);
-    add(m_player);
 }
 
 void StateGame::doInternalUpdate(float const elapsed)
