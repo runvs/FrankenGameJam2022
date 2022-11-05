@@ -45,7 +45,7 @@ void jt::Star::doCreate()
         size = 2;
     }
     m_shape->makeCircle(static_cast<float>(size), getGame()->gfx().textureManager());
-    m_shape->setCamMovementFactor(0.5f);
+    m_shape->setCamMovementFactor(jt::Vector2f { 0.5f, 0.5f });
 
     int glowSize = jt::Random::getInt(12, 40);
     m_glow
@@ -89,7 +89,7 @@ void jt::Star::doDraw() const
     m_glow->draw(getGame()->gfx().target());
     m_shape->draw(getGame()->gfx().target());
 }
-void jt::Star::setCamMovementFactor(float factor)
+void jt::Star::setCamMovementFactor(Vector2f const& factor)
 {
     m_shape->setCamMovementFactor(factor);
     m_glow->setCamMovementFactor(factor);

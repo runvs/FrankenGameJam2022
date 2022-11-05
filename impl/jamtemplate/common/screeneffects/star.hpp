@@ -10,7 +10,7 @@ class Star : public jt::GameObject {
 public:
     void setPosition(jt::Vector2f const& screenSizeHint);
     void setColor(jt::Color const& col);
-    void setCamMovementFactor(float factor);
+    void setCamMovementFactor(Vector2f const& factor);
 
 private:
     std::shared_ptr<jt::Shape> m_shape;

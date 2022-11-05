@@ -20,11 +20,11 @@ void ParallaxBackground::doCreate()
         m_layer5 = std::make_shared<jt::Sprite>(
             "assets/background/" + m_era + "_5.png", getGame()->gfx().textureManager());
 
-        m_layer1->setCamMovementFactor(0.0f);
-        m_layer2->setCamMovementFactor(0.2f);
-        m_layer3->setCamMovementFactor(0.5f);
-        m_layer4->setCamMovementFactor(0.8f);
-        m_layer5->setCamMovementFactor(0.8f);
+        m_layer1->setCamMovementFactor(jt::Vector2f { 0.0f, 0.0f });
+        m_layer2->setCamMovementFactor(jt::Vector2f { 0.2f, 0.0f });
+        m_layer3->setCamMovementFactor(jt::Vector2f { 0.5f, 0.0f });
+        m_layer4->setCamMovementFactor(jt::Vector2f { 0.8f, 0.0f });
+        m_layer5->setCamMovementFactor(jt::Vector2f { 0.8f, 0.0f });
     }
 }
 

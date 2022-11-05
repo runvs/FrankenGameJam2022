@@ -41,7 +41,7 @@ void jt::Stars::doDraw() const
     }
 }
 void jt::Stars::setEnabled(bool enable) { m_enabled = enable; }
-void jt::Stars::setCamMovementFactor(float factor)
+void jt::Stars::setCamMovementFactor(Vector2f const& factor)
 {
     for (auto& star : m_stars) {
         star->setCamMovementFactor(factor);

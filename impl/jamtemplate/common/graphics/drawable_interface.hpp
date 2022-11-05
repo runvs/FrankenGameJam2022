@@ -185,11 +185,11 @@ public:
 
     /// Set the cam movement factor
     /// \param factor the cam movement factor
-    virtual void setCamMovementFactor(float factor) = 0;
+    virtual void setCamMovementFactor(Vector2f const& factor) = 0;
 
     /// Get the cam movement factor
     /// \return the cam movement factor
-    virtual float getCamMovementFactor() const = 0;
+    virtual jt::Vector2f getCamMovementFactor() const = 0;
 
     /// Set the screensize hint. This will be used to avoid drawing of off-screen drawables.
     /// \param hint the size of the screen
