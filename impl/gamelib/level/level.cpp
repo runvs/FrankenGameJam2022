@@ -200,6 +200,14 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_seed->create();
             }
         }
+        if (sr.name == "obstacle_tree") {
+            if (GP::getPersistentValue("seed") != 0) {
+                getGame()->logger().info("tree created", { "story_objects" });
+                m_obstacle_tree = std::make_shared<ObstacleTree>(m_world.lock(), sr.position);
+                m_obstacle_tree->setGameInstance(getGame());
+                m_obstacle_tree->create();
+            }
+        }
     }
 }
 
@@ -226,6 +234,13 @@ void Level::doUpdate(float const elapsed)
             m_seed.reset();
         }
     }
+
+    if (m_obstacle_tree) {
+        m_obstacle_tree->update(elapsed);
+        if (!m_obstacle_tree->isAlive()) {
+            m_obstacle_tree.reset();
+        }
+    }
 }
 
 void Level::doDraw() const
@@ -246,6 +261,9 @@ void Level::doDraw() const
     }
     if (m_seed) {
         m_seed->draw();
+    }
+    if (m_obstacle_tree) {
+        m_obstacle_tree->draw();
     }
 }
 

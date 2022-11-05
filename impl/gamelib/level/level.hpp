@@ -8,6 +8,7 @@
 #include <level/exit.hpp>
 #include <level/killbox.hpp>
 #include <level/moving_platform.hpp>
+#include <level/story_objects/obstacle_tree.hpp>
 #include <level/story_objects/seed.hpp>
 #include <object_group.hpp>
 #include <shape.hpp>
@@ -53,6 +54,7 @@ private:
 
     // story objects
     std::shared_ptr<Seed> m_seed { nullptr };
+    std::shared_ptr<ObstacleTree> m_obstacle_tree { nullptr };
 
     void loadLevelSettings(jt::tilemap::TilesonLoader& loader);
     void loadLevelTileLayer(jt::tilemap::TilesonLoader& loader);

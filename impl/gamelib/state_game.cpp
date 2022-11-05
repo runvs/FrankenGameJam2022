@@ -109,18 +109,22 @@ void StateGame::endGame()
 
 void StateGame::handleCameraScrolling(float const elapsed)
 {
-    // TODO add y scrolling if needed
+
     auto ps = m_player->getPosOnScreen();
 
     float const rightMargin = 150.0f;
     float const leftMargin = 150.0f;
+    float const topMargin = 75.0f;
+    float const bottomMargin = 75.0f;
     float const scrollSpeed = 60.0f;
     auto& cam = getGame()->gfx().camera();
 
-    auto const screenWidth = 400.0f;
+    auto const screenWidth = GP::GetScreenSize().x;
+    auto const screenHeight = GP::GetScreenSize().y;
+
     if (ps.x < leftMargin) {
         cam.move(jt::Vector2f { -scrollSpeed * elapsed, 0.0f });
-        if (ps.x < rightMargin / 2) {
+        if (ps.x < leftMargin / 2) {
             cam.move(jt::Vector2f { -scrollSpeed * elapsed, 0.0f });
         }
     } else if (ps.x > screenWidth - rightMargin) {
@@ -130,15 +134,35 @@ void StateGame::handleCameraScrolling(float const elapsed)
         }
     }
 
+    if (ps.y < topMargin) {
+        cam.move(jt::Vector2f { 0.0f, -scrollSpeed * elapsed });
+        if (ps.y < topMargin / 2) {
+            cam.move(jt::Vector2f { 0.0f, -scrollSpeed * elapsed });
+        }
+    } else if (ps.y > screenHeight - bottomMargin) {
+        cam.move(jt::Vector2f { 0.0f, scrollSpeed * elapsed });
+        if (ps.y > screenHeight - bottomMargin / 3 * 2) {
+            cam.move(jt::Vector2f { 0.0f, scrollSpeed * elapsed });
+        }
+    }
+
     // clamp camera to level bounds
     auto offset = cam.getCamOffset();
     if (offset.x < 0) {
         offset.x = 0;
     }
+    if (offset.y < 0) {
+        offset.y = 0;
+    }
     auto const levelWidth = m_level->getLevelSizeInPixel().x;
-    auto const maxCamPosition = levelWidth - screenWidth;
-    if (offset.x > maxCamPosition) {
-        offset.x = maxCamPosition;
+    auto const maxCamPositionX = levelWidth - screenWidth;
+    if (offset.x > maxCamPositionX) {
+        offset.x = maxCamPositionX;
+    }
+    auto const levelHeight = m_level->getLevelSizeInPixel().y;
+    auto const maxCamPositionY = levelHeight - screenHeight;
+    if (offset.y > maxCamPositionY) {
+        offset.y = maxCamPositionY;
     }
     cam.setCamOffset(offset);
 }
