@@ -1,18 +1,18 @@
 ﻿#include "state_game.hpp"
-#include <player/platform_player.hpp>
 #include <box2dwrapper/box2d_contact_manager.hpp>
 #include <box2dwrapper/box2d_world_impl.hpp>
 #include <box2dwrapper/logging_box2d_contact_manager.hpp>
 #include <contact_callbacks/contact_callback_player_enemy.hpp>
 #include <contact_callbacks/contact_callback_player_ground.hpp>
+#include <game_interface.hpp>
+#include <game_properties.hpp>
 #include <input/input_manager.hpp>
+#include <player/platform_player.hpp>
 #include <random/random.hpp>
 #include <state_menu.hpp>
 #include <tweens/tween_alpha.hpp>
 #include <tweens/tween_position.hpp>
 #include <tweens/tween_rotation.hpp>
-#include <game_interface.hpp>
-#include <game_properties.hpp>
 
 StateGame::StateGame(std::string const& levelName) { m_levelName = levelName; }
 
@@ -42,7 +42,8 @@ void StateGame::doInternalCreate()
 
 void StateGame::loadLevel()
 {
-    m_level = std::make_shared<Level>("assets/level_data/" + m_levelName, m_world);
+    m_level = std::make_shared<Level>("assets/level/" + m_levelName, m_world);
+    
     add(m_level);
 }
 
@@ -74,20 +75,16 @@ void StateGame::doInternalUpdate(float const elapsed)
     }
 
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F2)) {
-        getGame()->stateManager().switchState(
-            std::make_shared<StateGame>("platformer_0_2.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("platformer_0_2.json"));
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F3)) {
-        getGame()->stateManager().switchState(
-            std::make_shared<StateGame>("platformer_0_3.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("platformer_0_3.json"));
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F5)) {
-        getGame()->stateManager().switchState(
-            std::make_shared<StateGame>("platformer_0_5.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("platformer_0_5.json"));
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F6)) {
-        getGame()->stateManager().switchState(
-            std::make_shared<StateGame>("platformer_0_6.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("platformer_0_6.json"));
     }
 }
 
