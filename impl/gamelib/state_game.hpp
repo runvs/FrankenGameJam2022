@@ -41,7 +41,7 @@ private:
     void doInternalUpdate(float const /*elapsed*/) override;
     void doInternalDraw() const override;
 
-    void CreatePlayer();
+    void createPlayer();
     void loadLevel();
     void handleCameraScrolling(float const elapsed);
     void endGame();

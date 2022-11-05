@@ -12,6 +12,7 @@
 #include <tweens/tween_position.hpp>
 #include <tweens/tween_rotation.hpp>
 #include <game_interface.hpp>
+#include <game_properties.hpp>
 
 StateGame::StateGame(std::string const& levelName) { m_levelName = levelName; }
 
@@ -25,7 +26,7 @@ void StateGame::doInternalCreate()
 
     loadLevel();
 
-    CreatePlayer();
+    createPlayer();
     auto playerGroundContactListener = std::make_shared<ContactCallbackPlayerGround>();
     playerGroundContactListener->setPlayer(m_player);
     m_world->getContactManager().registerCallback("player_ground", playerGroundContactListener);
@@ -34,7 +35,7 @@ void StateGame::doInternalCreate()
     playerEnemyContactListener->setPlayer(m_player);
     m_world->getContactManager().registerCallback("player_enemy", playerEnemyContactListener);
 
-    m_vignette = std::make_shared<jt::Vignette>(jt::Vector2f { 400.0f, 300.0f });
+    m_vignette = std::make_shared<jt::Vignette>(GP::GetScreenSize());
     add(m_vignette);
     setAutoDraw(false);
 }
@@ -48,9 +49,7 @@ void StateGame::loadLevel()
 void StateGame::doInternalUpdate(float const elapsed)
 {
     if (!m_ending && !getGame()->stateManager().getTransition()->isInProgress()) {
-        std::int32_t const velocityIterations = 20;
-        std::int32_t const positionIterations = 20;
-        m_world->step(elapsed, velocityIterations, positionIterations);
+        m_world->step(elapsed, GP::PhysicVelocityIterations(), GP::PhysicPositionIterations());
 
         if (!m_player->isAlive()) {
             endGame();
@@ -145,7 +144,7 @@ void StateGame::doInternalDraw() const
     m_vignette->draw();
 }
 
-void StateGame::CreatePlayer()
+void StateGame::createPlayer()
 {
     m_player = std::make_shared<Player>(m_world);
     m_player->setPosition(m_level->getPlayerStart());
