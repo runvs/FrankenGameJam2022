@@ -42,6 +42,10 @@ void StateGame::doInternalCreate()
     m_vignette = std::make_shared<jt::Vignette>(GP::GetScreenSize());
     add(m_vignette);
     setAutoDraw(false);
+
+    if (getGame()->audio().getPermanentSound("portal") == nullptr) {
+        getGame()->audio().addPermanentSound("portal", "assets/sound/portal.ogg");
+    }
 }
 
 void StateGame::loadLevel()
@@ -63,6 +67,7 @@ void StateGame::doInternalUpdate(float const elapsed)
         m_level->checkIfPlayerIsInExit(m_player->getPosition(),
             [this](std::string const& newLevelName, std::string const& newLevelTargetId) {
                 if (!m_ending) {
+                    getGame()->audio().getPermanentSound("portal")->play();
                     m_ending = true;
                     getGame()->stateManager().switchState(
                         std::make_shared<StateGame>(newLevelName, newLevelTargetId));
