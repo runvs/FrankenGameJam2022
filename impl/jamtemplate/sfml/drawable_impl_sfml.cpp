@@ -28,7 +28,9 @@ sf::BlendMode jt::DrawableImplSFML::getSfBlendMode() const
 jt::Vector2f jt::DrawableImplSFML::getCompleteCamOffset() const
 {
     if (getIgnoreCamMovement()) {
-        return getCamOffset() + m_camMovementFactor * getStaticCamOffset();
+        return getCamOffset()
+            + jt::Vector2f { m_camMovementFactor.x * getStaticCamOffset().x,
+                  m_camMovementFactor.y * getStaticCamOffset().y };
     } else {
         return getCamOffset();
     }

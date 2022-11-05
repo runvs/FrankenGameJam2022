@@ -82,8 +82,8 @@ public:
 
     BlendMode getBlendMode() const override;
 
-    void setCamMovementFactor(float factor) override;
-    float getCamMovementFactor() const override;
+    void setCamMovementFactor(Vector2f const& factor) override;
+    jt::Vector2f getCamMovementFactor() const override;
 
     void setZ(int z) override;
     int getZ() const override;
@@ -94,7 +94,7 @@ protected:
     jt::Vector2f m_screenSizeHint { 0.0f, 0.0f };
 
     virtual void setOriginInternal(jt::Vector2f const& /*origin*/) { }
-    float m_camMovementFactor { 1.0f };
+    jt::Vector2f m_camMovementFactor { 1.0f, 1.0f };
 
     jt::OriginMode m_originMode { jt::OriginMode::MANUAL };
     jt::Vector2f m_origin { 0.0f, 0.0f };

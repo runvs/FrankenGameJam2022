@@ -3,8 +3,7 @@
 
 jt::Vector2f jt::DrawableImpl::m_CamOffset { 0.0f, 0.0f };
 
-void jt::DrawableImpl::draw(
-    std::shared_ptr<jt::RenderTargetInterface> targetContainer) const
+void jt::DrawableImpl::draw(std::shared_ptr<jt::RenderTargetInterface> targetContainer) const
 {
     if (!m_hasBeenUpdated) {
         std::cout << "WARNING: Calling DrawableImpl::draw() without previous call to "
@@ -107,7 +106,7 @@ void jt::DrawableImpl::setIgnoreCamMovement(bool ignore)
 {
     m_ignoreCamMovement = ignore;
     if (m_ignoreCamMovement) {
-        m_camMovementFactor = 0.0f;
+        m_camMovementFactor = jt::Vector2f { 0.0f, 0.0f };
     }
 }
 
@@ -146,7 +145,9 @@ bool jt::DrawableImpl::isVisible() const
         return true;
     }
 
-    jt::Vector2f const camOffset = getStaticCamOffset() * m_camMovementFactor;
+    jt::Vector2f const camOffset = jt::Vector2f { getStaticCamOffset().x * m_camMovementFactor.x,
+        getStaticCamOffset().y * m_camMovementFactor.y };
+
     if (getPosition().x + camOffset.x + getLocalBounds().width < 0) {
         return false;
     }
@@ -167,15 +168,16 @@ jt::BlendMode jt::DrawableImpl::getBlendMode() const { return m_blendMode; }
 jt::Vector2f jt::DrawableImpl::getScreenPosition() const
 {
     auto const camOffset = getStaticCamOffset();
-    return getPosition() + camOffset * m_camMovementFactor;
+    return getPosition()
+        + jt::Vector2f { camOffset.x * m_camMovementFactor.x, camOffset.y * m_camMovementFactor.y };
 }
 jt::Vector2f jt::DrawableImpl::getScreenSizeHint() const { return m_screenSizeHint; }
-void jt::DrawableImpl::setCamMovementFactor(float factor)
+void jt::DrawableImpl::setCamMovementFactor(Vector2f const& factor)
 {
     m_camMovementFactor = factor;
-    bool const ignoreCamMovement = m_camMovementFactor != 1.0f;
+    bool const ignoreCamMovement = m_camMovementFactor.x != 1.0f && m_camMovementFactor.y != 1.0f;
     m_ignoreCamMovement = ignoreCamMovement;
 }
-float jt::DrawableImpl::getCamMovementFactor() const { return m_camMovementFactor; }
+jt::Vector2f jt::DrawableImpl::getCamMovementFactor() const { return m_camMovementFactor; }
 void jt::DrawableImpl::setZ(int z) { m_z = z; }
 int jt::DrawableImpl::getZ() const { return m_z; }
