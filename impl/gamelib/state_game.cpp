@@ -69,8 +69,11 @@ void StateGame::doInternalUpdate(float const elapsed)
                 }
             });
 
+        m_level->checkIfPlayerIsOnStoryObject(m_player->getPosition());
+
         handleCameraScrolling(elapsed);
     }
+
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F1)
         || getGame()->input().keyboard()->justPressed(jt::KeyCode::Escape)) {
 

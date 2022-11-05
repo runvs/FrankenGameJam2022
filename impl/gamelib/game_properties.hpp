@@ -4,6 +4,7 @@
 #include <color/color.hpp>
 #include <color/palette.hpp>
 #include <vector.hpp>
+#include <map>
 #include <string>
 
 class GP {
@@ -34,6 +35,15 @@ public:
     static int PhysicVelocityIterations();
     static int PhysicPositionIterations();
     static jt::Vector2f PlayerSize();
+
+    static int getPersistentValue(std::string const& key);
+
+    static void setPersistentValue(std::string const& key, int value);
+
+    static void resetAllPersistentValues();
+
+private:
+    static std::map<std::string, int> m_persistentValues;
 };
 
 #endif
