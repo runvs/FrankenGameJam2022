@@ -1,7 +1,7 @@
 #ifndef JAMTEMPLATE_ENEMY_MOVEMENT_HORIZONTAL_HPP
 #define JAMTEMPLATE_ENEMY_MOVEMENT_HORIZONTAL_HPP
 
-#include <box2d/enemy_movement_interface.hpp>
+#include <enemies/movement/enemy_movement_interface.hpp>
 
 class EnemyMovementHorizontal : public EnemyMovementInterface {
 public:

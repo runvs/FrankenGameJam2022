@@ -1,10 +1,10 @@
 #ifndef JAMTEMPLATE_LEVEL_HPP
 #define JAMTEMPLATE_LEVEL_HPP
 
-#include <box2d/bee.hpp>
-#include <box2d/exit.hpp>
-#include <box2d/killbox.hpp>
-#include <box2d/moving_platform.hpp>
+#include <enemies/bee.hpp>
+#include <level/exit.hpp>
+#include <level/killbox.hpp>
+#include <level/moving_platform.hpp>
 #include <box2dwrapper/box2d_object.hpp>
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_object.hpp>

@@ -12,9 +12,7 @@
 class Player : public jt::GameObject {
 public:
     using Sptr = std::shared_ptr<Player>;
-    Player(std::shared_ptr<jt::Box2DWorldInterface> world);
-
-    ~Player() = default;
+    explicit Player(std::shared_ptr<jt::Box2DWorldInterface> world);
 
     std::shared_ptr<jt::Animation> getAnimation();
     b2Body* getB2Body();

@@ -1,12 +1,14 @@
-#ifndef JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_ENEMY_HPP
-#define JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_ENEMY_HPP
+#ifndef JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_GROUND_HPP
+#define JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_GROUND_HPP
 
-#include "platform_player.hpp"
+
 #include <box2dwrapper/box2d_contact_callback_interface.hpp>
 #include <Box2D/Dynamics/b2WorldCallbacks.h>
 #include <memory>
 
-class ContactCallbackPlayerEnemy : public jt::Box2DContactCallbackInterface {
+class Player;
+
+class ContactCallbackPlayerGround : public jt::Box2DContactCallbackInterface {
 public:
     void setPlayer(std::weak_ptr<Player> player);
     void setEnabled(bool enabled) override;
@@ -24,8 +26,7 @@ private:
     /// Called when two fixtures cease to touch.
     void onEndContact(b2Contact* contact) override;
 
-    bool isPlayerFixture(b2Fixture* fa) const;
-    bool isEnemyFixture(b2Fixture* fa) const;
+    bool isPlayerFeetFixture(b2Fixture* fa) const;
 };
 
-#endif // JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_ENEMY_HPP
+#endif // JAMTEMPLATE_CONTACT_CALLBACK_PLAYER_GROUND_HPP

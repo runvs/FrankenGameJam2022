@@ -1,6 +1,6 @@
 #include "level.hpp"
-#include <box2d/enemy_movement_horizontal.hpp>
-#include <box2d/enemy_movement_vertical.hpp>
+#include <enemies/movement/enemy_movement_horizontal.hpp>
+#include <enemies/movement/enemy_movement_vertical.hpp>
 #include <game_interface.hpp>
 #include <math_helper.hpp>
 #include <strutils.hpp>

@@ -2,7 +2,7 @@
 #define JAMTEMPLATE_BEE_HPP
 
 #include <animation.hpp>
-#include <box2d/enemy_movement_interface.hpp>
+#include <enemies/movement/enemy_movement_interface.hpp>
 #include <box2dwrapper/box2d_object.hpp>
 #include <game_object.hpp>
 

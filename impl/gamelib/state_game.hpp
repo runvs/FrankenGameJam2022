@@ -5,6 +5,9 @@
 #include <game_state.hpp>
 #include <memory>
 #include <vector>
+#include <level/level.hpp>
+#include <player/platform_player.hpp>
+#include <screeneffects/vignette.hpp>
 
 // fwd decls
 namespace jt {
@@ -17,24 +20,33 @@ class Hud;
 
 class StateGame : public jt::GameState {
 public:
-    std::string getName() const override;
+    explicit StateGame(std::string const& levelName = "platformer_0_0.json");
 
 private:
-    std::shared_ptr<jt::Shape> m_background;
-    std::shared_ptr<jt::Vignette> m_vignette;
-    std::shared_ptr<Hud> m_hud;
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
-    bool m_running { true };
-    bool m_hasEnded { false };
 
-    int m_scoreP1 { 0 };
-    int m_scoreP2 { 0 };
+    std::string m_levelName { "" };
+    std::shared_ptr<Level> m_level { nullptr };
+    std::shared_ptr<Player> m_player { nullptr };
+    std::shared_ptr<jt::Vignette> m_vignette { nullptr };
+
+    std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_walkParticles { nullptr };
+    std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_playerJumpParticles { nullptr };
+
+    bool m_ending { false };
+
+    std::string getName() const override;
 
     void doInternalCreate() override;
-    void doInternalUpdate(float const elapsed) override;
+    void doInternalUpdate(float const /*elapsed*/) override;
     void doInternalDraw() const override;
 
+    void CreatePlayer();
+    void loadLevel();
+    void handleCameraScrolling(float const elapsed);
     void endGame();
+    void createPlayerWalkParticles();
+    void createPlayerJumpParticleSystem();
 };
 
 #endif

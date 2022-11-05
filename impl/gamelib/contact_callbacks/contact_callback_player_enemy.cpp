@@ -1,6 +1,6 @@
-
+#include <player/platform_player.hpp>
 #include "contact_callback_player_enemy.hpp"
-#include <box2d/user_data_entries.hpp>
+#include <level/user_data_entries.hpp>
 
 void ContactCallbackPlayerEnemy::setPlayer(std::weak_ptr<Player> player) { m_player = player; }
 void ContactCallbackPlayerEnemy::setEnabled(bool enabled) { m_enabled = enabled; }

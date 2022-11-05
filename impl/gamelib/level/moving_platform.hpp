@@ -1,8 +1,8 @@
 #ifndef JAMTEMPLATE_MOVING_PLATFORM_HPP
 #define JAMTEMPLATE_MOVING_PLATFORM_HPP
 
-#include "sprite.hpp"
-#include <box2d/killbox.hpp>
+#include <sprite.hpp>
+#include <level/killbox.hpp>
 #include <box2dwrapper/box2d_object.hpp>
 #include <game_object.hpp>
 #include <shape.hpp>
