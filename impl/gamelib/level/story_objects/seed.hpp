@@ -7,7 +7,7 @@
 class Seed : public jt::GameObject {
 public:
     explicit Seed(jt::Vector2f const& pos);
-    void checkIfPlayerIsOver(jt::Vector2f const& playerPosition) const;
+    void checkIfPlayerIsOver(jt::Vector2f const& playerPosition);
 
 private:
     jt::Vector2f m_pos { 0.0f, 0.0f };

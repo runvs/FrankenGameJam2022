@@ -9,6 +9,7 @@
 #include <level/killbox.hpp>
 #include <level/moving_platform.hpp>
 #include <level/story_objects/seed.hpp>
+#include <object_group.hpp>
 #include <shape.hpp>
 #include <tilemap/tile_layer.hpp>
 #include <tilemap/tileson_loader.hpp>

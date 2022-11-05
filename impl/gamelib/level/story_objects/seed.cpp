@@ -23,13 +23,15 @@ void Seed::doDraw() const
         m_shape->draw(renderTarget());
     }
 }
-void Seed::checkIfPlayerIsOver(jt::Vector2f const& playerPosition) const
+
+void Seed::checkIfPlayerIsOver(jt::Vector2f const& playerPosition)
 {
     if (GP::getPersistentValue("seed") == 0) {
         jt::Rectf const rect { m_pos.x, m_pos.y, 8.0f, 8.0f };
         if (jt::MathHelper::checkIsIn(rect, playerPosition)) {
             getGame()->logger().info("Player picks up seed", { "demo", "story_objects" });
             GP::setPersistentValue("seed", 1);
+            kill();
         }
     }
 }

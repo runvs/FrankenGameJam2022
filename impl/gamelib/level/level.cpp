@@ -193,9 +193,12 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
 
     for (auto const& sr : storyObjects) {
         if (sr.name == "seed") {
-            m_seed = std::make_shared<Seed>(sr.position);
-            m_seed->setGameInstance(getGame());
-            m_seed->create();
+            if (GP::getPersistentValue("seed") == 0) {
+                getGame()->logger().info("seed created", { "story_objects" });
+                m_seed = std::make_shared<Seed>(sr.position);
+                m_seed->setGameInstance(getGame());
+                m_seed->create();
+            }
         }
     }
 }
@@ -219,6 +222,9 @@ void Level::doUpdate(float const elapsed)
 
     if (m_seed) {
         m_seed->update(elapsed);
+        if (!m_seed->isAlive()) {
+            m_seed.reset();
+        }
     }
 }
 
