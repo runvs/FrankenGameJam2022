@@ -1,6 +1,7 @@
 #ifndef JAMTEMPLATE_LEVEL_HPP
 #define JAMTEMPLATE_LEVEL_HPP
 
+#include "parallax_background.hpp"
 #include <box2dwrapper/box2d_object.hpp>
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <enemies/bee.hpp>
@@ -36,7 +37,11 @@ private:
     void doUpdate(float const elapsed) override;
     void doDraw() const override;
 
-    std::shared_ptr<jt::Shape> m_background { nullptr };
+    std::string m_levelEra { "" };
+
+    std::shared_ptr<ParallaxBackground> m_background;
+
+//    std::shared_ptr<jt::Shape> m_background { nullptr };
     std::string m_fileName { "" };
     std::weak_ptr<jt::Box2DWorldInterface> m_world {};
 
