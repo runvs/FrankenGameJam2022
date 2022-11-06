@@ -243,7 +243,20 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
             m_tricky->setGameInstance(getGame());
             m_tricky->create();
             // TODO: "tricky", "legonite"
-            // TODO: gingko seed?
+        } else if (sr.name == "ginkgo_seed") {
+            if (GP::getPersistentValue("ginkgo_seed") == 0) {
+                getGame()->logger().info("ginkgo seed created", { "story_objects" });
+                m_ginkgo_seed = std::make_shared<GinkgoSeed>(sr.position);
+                m_ginkgo_seed->setGameInstance(getGame());
+                m_ginkgo_seed->create();
+            }
+        } else if (sr.name == "ginkgo_seedbed") {
+            if (GP::getPersistentValue("ginkgo_seedbed") == 0) {
+                getGame()->logger().info("ginkgo seedbed created", { "story_objects" });
+                m_ginkgo_seedbed = std::make_shared<GinkgoSeedBed>(sr.position);
+                m_ginkgo_seedbed->setGameInstance(getGame());
+                m_ginkgo_seedbed->create();
+            }
         }
     }
 }
@@ -327,8 +340,13 @@ void Level::doDraw() const
     if (m_tricky) {
         m_tricky->draw();
     }
+    if (m_ginkgo_seed) {
+        m_ginkgo_seed->draw();
+    }
+    if (m_ginkgo_seedbed) {
+        m_ginkgo_seedbed->draw();
+    }
 }
-
 jt::Vector2f Level::getPlayerStart(std::string const& id) const { return m_startPositions.at(id); }
 
 void Level::checkIfPlayerIsInKillbox(
@@ -358,6 +376,12 @@ void Level::checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition)
     }
     if (m_seedbed) {
         m_seedbed->checkIfPlayerIsOver(playerPosition);
+    }
+    if (m_ginkgo_seed) {
+        m_ginkgo_seed->checkIfPlayerIsOver(playerPosition);
+    }
+    if (m_ginkgo_seedbed) {
+        m_ginkgo_seedbed->checkIfPlayerIsOver(playerPosition);
     }
     if (m_keycard) {
 
