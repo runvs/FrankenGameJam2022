@@ -4,6 +4,7 @@
 #include "cam_interface.hpp"
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <game_state.hpp>
+#include <level/coin.hpp>
 #include <level/level.hpp>
 #include <player/platform_player.hpp>
 #include <screeneffects/vignette.hpp>

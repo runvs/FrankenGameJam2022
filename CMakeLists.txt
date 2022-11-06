@@ -104,7 +104,7 @@ endif ()
 ## setup Projects
 #####################################################
 add_subdirectory(impl)
-add_subdirectory(test)
+#add_subdirectory(test)
 
 ## copy .clang-format to build directory
 #####################################################
