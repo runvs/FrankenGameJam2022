@@ -8,6 +8,7 @@
 #include "level/story_objects/keycard.hpp"
 #include "level/story_objects/seed_bed.hpp"
 #include "level/story_objects/tricky.hpp"
+#include "level/story_objects/tricky_wreck.hpp"
 #include "parallax_background.hpp"
 #include <box2dwrapper/box2d_object.hpp>
 #include <box2dwrapper/box2d_world_interface.hpp>
@@ -75,6 +76,7 @@ private:
     std::shared_ptr<Door> m_door { nullptr };
 
     std::shared_ptr<Tricky> m_tricky { nullptr };
+    std::shared_ptr<TrickyWreck> m_wreck { nullptr };
     /* std::shared_ptr<Legonite> m_legonite { nullptr };*/
     std::shared_ptr<GinkgoSeed> m_ginkgo_seed { nullptr };
     std::shared_ptr<GinkgoSeedBed> m_ginkgo_seedbed { nullptr };
