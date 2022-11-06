@@ -1,10 +1,11 @@
 #ifndef JAMTEMPLATE_LEVEL_HPP
 #define JAMTEMPLATE_LEVEL_HPP
 
+#include "coin.hpp"
 #include "level/story_objects/door.hpp"
-#include "parallax_background.hpp"
 #include "level/story_objects/keycard.hpp"
 #include "level/story_objects/seed_bed.hpp"
+#include "parallax_background.hpp"
 #include <box2dwrapper/box2d_object.hpp>
 #include <box2dwrapper/box2d_world_interface.hpp>
 #include <enemies/bee.hpp>
@@ -35,6 +36,8 @@ public:
 
     jt::Vector2f getLevelSizeInPixel() const;
 
+    std::vector<jt::Vector2f> getCoinPositions() const;
+
 private:
     void doCreate() override;
     void doUpdate(float const elapsed) override;
@@ -44,7 +47,7 @@ private:
 
     std::shared_ptr<ParallaxBackground> m_background;
 
-//    std::shared_ptr<jt::Shape> m_background { nullptr };
+    //    std::shared_ptr<jt::Shape> m_background { nullptr };
     std::string m_fileName { "" };
     std::weak_ptr<jt::Box2DWorldInterface> m_world {};
 
@@ -67,6 +70,8 @@ private:
     std::shared_ptr<Keycard> m_keycard { nullptr };
     std::shared_ptr<Door> m_door { nullptr };
 
+    std::vector<jt::Vector2f> m_coinPositions {};
+
     void loadLevelSettings(jt::tilemap::TilesonLoader& loader);
     void loadLevelTileLayer(jt::tilemap::TilesonLoader& loader);
     void loadLevelCollisions(jt::tilemap::TilesonLoader& loader);
@@ -76,6 +81,7 @@ private:
     void loadEnemies(jt::tilemap::TilesonLoader& loader);
 
     void loadStoryObjects(jt::tilemap::TilesonLoader& loader);
+    void loadCoins(jt::tilemap::TilesonLoader& loader);
 };
 
 #endif // JAMTEMPLATE_LEVEL_HPP

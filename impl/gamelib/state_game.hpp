@@ -31,9 +31,12 @@ private:
     std::shared_ptr<Level> m_level { nullptr };
     std::shared_ptr<Player> m_player { nullptr };
     std::shared_ptr<jt::Vignette> m_vignette { nullptr };
+    std::shared_ptr<jt::ObjectGroup<Coin>> m_coins { nullptr };
 
     std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_walkParticles { nullptr };
     std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_playerJumpParticles { nullptr };
+
+    int m_coinCounter { 0 };
 
     bool m_ending { false };
 

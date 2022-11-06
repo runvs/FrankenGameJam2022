@@ -30,6 +30,7 @@ void Level::doCreate()
     loadLevelKillboxes(loader);
     loadMovingPlatforms(loader);
     loadEnemies(loader);
+    loadCoins(loader);
 
     loadStoryObjects(loader);
 
@@ -346,6 +347,18 @@ void Level::checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition)
         m_seedbed->checkIfPlayerIsOver(playerPosition);
     }
     if (m_keycard) {
+
         m_keycard->checkIfPlayerIsOver(playerPosition);
+    }
+}
+
+std::vector<jt::Vector2f> Level::getCoinPositions() const { return m_coinPositions; }
+
+void Level::loadCoins(jt::tilemap::TilesonLoader& loader)
+{
+    auto coins = loader.loadObjectsFromLayer("coins");
+
+    for (auto& c : coins) {
+        m_coinPositions.push_back(c.position);
     }
 }

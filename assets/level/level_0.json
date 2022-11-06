@@ -64,6 +64,117 @@
          "y":0
         }, 
         {
+         "color":"#ffff00",
+         "draworder":"topdown",
+         "id":5,
+         "name":"coins",
+         "objects":[
+                {
+                 "class":"",
+                 "height":8,
+                 "id":10,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":120,
+                 "y":224
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":13,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":176,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":14,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":192,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":15,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":208,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":16,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":224,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":17,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":184,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":18,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":200,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":19,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":216,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":20,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":232,
+                 "y":200
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "color":"#ff0000",
          "draworder":"topdown",
          "id":3,
@@ -157,8 +268,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":10,
+ "nextlayerid":6,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

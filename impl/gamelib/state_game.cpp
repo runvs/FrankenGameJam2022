@@ -13,6 +13,7 @@
 #include <tweens/tween_alpha.hpp>
 #include <tweens/tween_position.hpp>
 #include <tweens/tween_rotation.hpp>
+#include <tweens/tween_scale.hpp>
 
 StateGame::StateGame(std::string const& levelName, std::string const& targetId)
 {
@@ -53,6 +54,14 @@ void StateGame::loadLevel()
     m_level = std::make_shared<Level>("assets/level/" + m_levelName, m_world);
 
     add(m_level);
+
+    m_coins = std::make_shared<jt::ObjectGroup<Coin>>();
+    add(m_coins);
+    for (auto const& p : m_level->getCoinPositions()) {
+        auto c = std::make_shared<Coin>(p);
+        add(c);
+        m_coins->push_back(c);
+    }
 }
 
 void StateGame::doInternalUpdate(float const elapsed)
@@ -75,6 +84,27 @@ void StateGame::doInternalUpdate(float const elapsed)
             });
 
         m_level->checkIfPlayerIsOnStoryObject(m_player->getPosition());
+
+        jt::Rectf playerRect { m_player->getPosition().x - 6.0f, m_player->getPosition().y - 6.0f,
+            12.0f, 12.0f };
+        for (auto& coin : *m_coins) {
+            auto c = coin.lock();
+            if (c->canBePickedUp()) {
+                if (jt::MathHelper::checkIsIn(playerRect, c->getPosition())) {
+                    c->pickUp();
+                    m_coinCounter++;
+                    // TODO add hud display
+
+                    auto twa = jt::TweenAlpha::create(c->getDrawable(), 0.4f, 255, 0);
+                    add(twa);
+
+                    auto tws = jt::TweenScale::create(c->getDrawable(), 0.4f,
+                        jt::Vector2f { 1.0f, 1.0f }, jt::Vector2f { 3.0f, 3.0f });
+                    tws->addCompleteCallback([c]() { c->kill(); });
+                    add(tws);
+                }
+            }
+        }
 
         handleCameraScrolling(elapsed);
     }
@@ -174,6 +204,12 @@ void StateGame::doInternalDraw() const
 {
     m_level->draw();
 
+    for (auto& c : *m_coins) {
+        auto coin = c.lock();
+        if (coin) {
+            coin->draw();
+        }
+    }
     m_player->draw();
     m_walkParticles->draw();
     m_playerJumpParticles->draw();
@@ -192,6 +228,7 @@ void StateGame::createPlayer()
     createPlayerWalkParticles();
     createPlayerJumpParticleSystem();
 }
+
 void StateGame::createPlayerJumpParticleSystem()
 {
     m_playerJumpParticles = jt::ParticleSystem<jt::Shape, 50>::createPS(
