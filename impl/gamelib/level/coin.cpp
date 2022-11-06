@@ -1,5 +1,7 @@
 #include "coin.hpp"
+#include <animation.hpp>
 #include <game_interface.hpp>
+#include <random/random.hpp>
 
 Coin::Coin(jt::Vector2f const& pos)
     : m_pos { pos + jt::Vector2f { 4.0f, 4.0f } }
@@ -8,12 +10,13 @@ Coin::Coin(jt::Vector2f const& pos)
 
 void Coin::doCreate()
 {
-    // TODO use real graphic sprite
-    auto shape = std::make_shared<jt::Shape>();
-    shape->makeRect(jt::Vector2f { 8.0f, 8.0f }, textureManager());
-    shape->setOrigin(jt::OriginMode::CENTER);
+    auto anim = std::make_shared<jt::Animation>();
+    anim->add("assets/level/coin.png", "idle", jt::Vector2u { 8u, 8u }, { 0, 1, 2, 3 },
+        jt::Random::getFloatGauss(0.2f, 0.01f), textureManager());
+    anim->play("idle", jt::Random::getInt(0, 3));
+    anim->setOrigin(jt::OriginMode::CENTER);
 
-    m_drawable = shape;
+    m_drawable = anim;
     m_drawable->setColor(jt::colors::Yellow);
 
     m_drawable->setPosition(m_pos);

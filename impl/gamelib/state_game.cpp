@@ -101,6 +101,7 @@ void StateGame::doInternalUpdate(float const elapsed)
                     m_coinCounter++;
                     // TODO add hud display
 
+                    c->getDrawable()->flash(0.39f, jt::Color { 255, 255, 255, 150 });
                     auto twa = jt::TweenAlpha::create(c->getDrawable(), 0.4f, 255, 0);
                     add(twa);
 
