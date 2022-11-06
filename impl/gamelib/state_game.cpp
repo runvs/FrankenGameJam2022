@@ -7,6 +7,7 @@
 #include <game_interface.hpp>
 #include <game_properties.hpp>
 #include <input/input_manager.hpp>
+#include <oalpp/effects/utility/gain.hpp>
 #include <player/platform_player.hpp>
 #include <random/random.hpp>
 #include <state_menu.hpp>
@@ -53,7 +54,9 @@ void StateGame::doInternalCreate()
     }
 
     if (getGame()->audio().getPermanentSound("main_music") == nullptr) {
-        m_music = getGame()->audio().addPermanentSound("main_music", "assets/music/main_music.ogg");
+        auto effect = oalpp::effects::utility::Gain { 1.0f };
+        m_music = getGame()->audio().addPermanentSound("main_music",
+            "assets/music/main_music_intro.ogg", "assets/music/main_music.ogg", effect);
         m_music->setVolume(0.2f);
         m_music->play();
     }

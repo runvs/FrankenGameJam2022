@@ -9,7 +9,6 @@
 #include <log/license_info.hpp>
 #include <math_helper.hpp>
 #include <screeneffects/vignette.hpp>
-#include <shape.hpp>
 #include <sprite.hpp>
 #include <state_game.hpp>
 #include <state_manager/state_manager_transition_fade_to_black.hpp>
@@ -19,7 +18,6 @@
 #include <tweens/tween_position.hpp>
 #include <tweens/tween_scale.hpp>
 #include <algorithm>
-#include <iostream>
 
 void StateMenu::doInternalCreate()
 {
@@ -37,6 +35,7 @@ void StateMenu::doInternalCreate()
         GP::GetScreenSize(), textureManager()));
 
     m_menuMusic = getGame()->audio().addPermanentSound("menu_music", "assets/music/menu_music.ogg");
+    m_menuMusic->setLoop(true);
     m_menuMusic->setVolume(0.2f);
     m_menuMusic->play();
 }
@@ -185,10 +184,6 @@ void StateMenu::createTweenCreditsPosition()
 
 void StateMenu::doInternalUpdate(float const elapsed)
 {
-    if (!m_menuMusic->isPlaying()) {
-        m_menuMusic->play();
-    }
-
     updateDrawables(elapsed);
     checkForTransitionToStateGame();
     jt::Vector2f const& axis = getGame()->input().gamepad(0)->getAxis(jt::GamepadAxisCode::ARight);
