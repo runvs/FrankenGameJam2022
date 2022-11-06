@@ -311,11 +311,6 @@
                          "name":"next_level",
                          "type":"string",
                          "value":"level_7.json"
-                        }, 
-                        {
-                         "name":"target_id",
-                         "type":"string",
-                         "value":"time_machine"
                         }],
                  "rotation":0,
                  "visible":true,
