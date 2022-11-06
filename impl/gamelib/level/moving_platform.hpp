@@ -1,18 +1,18 @@
 #ifndef JAMTEMPLATE_MOVING_PLATFORM_HPP
 #define JAMTEMPLATE_MOVING_PLATFORM_HPP
 
-#include <sprite.hpp>
-#include <level/killbox.hpp>
 #include <box2dwrapper/box2d_object.hpp>
 #include <game_object.hpp>
+#include <level/killbox.hpp>
 #include <shape.hpp>
+#include <sprite.hpp>
 #include <memory>
 
 class MovingPlatform : public jt::GameObject {
 public:
     MovingPlatform(std::shared_ptr<jt::Box2DWorldInterface> world, jt::Vector2f const& size,
         std::vector<std::pair<jt::Vector2f, float>> const& positions, float velocity,
-        float timeoffset);
+        float timeoffset, std::string const& era);
 
     void setLinkedKillbox(std::shared_ptr<Killbox> kb);
 
@@ -21,6 +21,7 @@ private:
     std::vector<std::pair<jt::Vector2f, float>> m_positions;
     float m_velocity { 1.0f };
     float m_timeOffset { 0.0f };
+    std::string m_era { "cp " };
     jt::Vector2f m_platformSize { 0.0f, 0.0f };
     mutable std::shared_ptr<jt::Sprite> m_spriteL { nullptr };
     mutable std::shared_ptr<jt::Sprite> m_spriteM { nullptr };
