@@ -29,10 +29,10 @@ public:
     static jt::Vector2f GetScreenSize() { return GetWindowSize() * (1.0f / GetZoom()); }
 
     static jt::Color PaletteBackground() { return GP::getPalette().getColor(5); }
-    static jt::Color PaletteFontFront() { return jt::Color { 19, 14, 38 }; }
-    static jt::Color PalleteFrontHighlight() { return jt::Color { 220, 144, 53 }; }
-    static jt::Color PaletteFontShadow() { return GP::getPalette().getColor(6); }
-    static jt::Color PaletteFontCredits() { return GP::getPalette().getColor(2); }
+    static jt::Color PaletteFontFront() { return jt::Color { 151, 237, 239 }; }
+    static jt::Color PalleteFrontHighlight() { return jt::Color { 57, 40, 122 }; }
+    static jt::Color PaletteFontShadow() { return jt::Color { 22, 19, 42 }; }
+    static jt::Color PaletteFontCredits() { return jt::Color { 151, 237, 239 }; }
 
     static jt::Palette getPalette();
 
