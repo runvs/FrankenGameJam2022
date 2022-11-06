@@ -16,7 +16,7 @@ void Door::doCreate()
     m_shape = std::make_shared<jt::Shape>();
     m_shape->makeRect(jt::Vector2f { 8.0f, 24.0f }, textureManager());
     m_shape->setPosition(m_pos);
-    m_shape->setOffset(jt::OffsetMode::TOPLEFT);
+    m_shape->setOffset(jt::OffsetMode::CENTER);
 
     b2FixtureDef fixtureDef;
     fixtureDef.density = 1.0f;
