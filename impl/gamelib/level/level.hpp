@@ -35,6 +35,7 @@ public:
     void checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition);
 
     jt::Vector2f getLevelSizeInPixel() const;
+    std::vector<jt::Vector2f> getLevelExitPositions() const;
 
     std::vector<jt::Vector2f> getCoinPositions() const;
 

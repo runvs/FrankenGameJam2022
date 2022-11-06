@@ -114,6 +114,14 @@ void StateGame::doInternalUpdate(float const elapsed)
 
         handleCameraScrolling(elapsed);
     }
+    m_portalParticleCounter--;
+    if (m_portalParticleCounter <= 0) {
+        for (auto& pp : m_level->getLevelExitPositions()) {
+            m_portalParticles->fire(1, pp);
+        }
+
+        m_portalParticleCounter = 15;
+    }
 
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F1)
         || getGame()->input().keyboard()->justPressed(jt::KeyCode::Escape)) {
@@ -216,6 +224,7 @@ void StateGame::doInternalDraw() const
             coin->draw();
         }
     }
+    m_portalParticles->draw();
     m_player->draw();
     m_walkParticles->draw();
     m_playerJumpParticles->draw();
@@ -233,6 +242,44 @@ void StateGame::createPlayer()
 
     createPlayerWalkParticles();
     createPlayerJumpParticleSystem();
+
+    createPortalParticleSystem();
+}
+
+void StateGame::createPortalParticleSystem()
+{
+    m_portalParticles = jt::ParticleSystem<jt::Shape, 50>::createPS(
+        [this]() {
+            auto s = std::make_shared<jt::Shape>();
+
+            s->makeRect(jt::Vector2f { 1.0f, 1.0f }, textureManager());
+
+            if (jt::Random::getChance()) {
+                s->setColor(jt::colors::White);
+            } else {
+                s->setColor(jt::colors::Blue);
+            }
+            s->setPosition(jt::Vector2f { -50000, -50000 });
+            s->setOrigin(jt::Vector2f { 1.0f, 1.0f });
+            return s;
+        },
+        [this](auto s, auto p) {
+            s->setPosition(p);
+            s->update(0.0f);
+            auto const totalTime = jt::Random::getFloat(0.6f, 0.8f);
+
+            auto twa = jt::TweenAlpha::create(s, totalTime / 2.0f, 200, 0);
+            twa->setStartDelay(totalTime / 2.0f);
+            add(twa);
+
+            auto const startPos = p;
+            auto const endPos = p
+                + jt::Vector2f { jt::Random::getFloatGauss(0, 4.5f),
+                      jt::Random::getFloatGauss(0, 4.5f) };
+            auto twp = jt::TweenPosition::create(s, totalTime, startPos, endPos);
+            add(twp);
+        });
+    add(m_portalParticles);
 }
 
 void StateGame::createPlayerJumpParticleSystem()

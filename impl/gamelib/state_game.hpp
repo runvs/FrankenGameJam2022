@@ -6,6 +6,7 @@
 #include <game_state.hpp>
 #include <level/coin.hpp>
 #include <level/level.hpp>
+#include <particle_system.hpp>
 #include <player/platform_player.hpp>
 #include <screeneffects/vignette.hpp>
 #include <memory>
@@ -37,6 +38,8 @@ private:
     std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_walkParticles { nullptr };
     std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_playerJumpParticles { nullptr };
 
+    std::shared_ptr<jt::ParticleSystem<jt::Shape, 50>> m_portalParticles { nullptr };
+    int m_portalParticleCounter { 0 };
     int m_coinCounter { 0 };
 
     bool m_ending { false };
@@ -54,6 +57,7 @@ private:
     void createPlayerWalkParticles();
     void createPlayerJumpParticleSystem();
     void clampCameraPositionToLevel() const;
+    void createPortalParticleSystem();
 };
 
 #endif
