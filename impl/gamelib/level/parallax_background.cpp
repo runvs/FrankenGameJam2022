@@ -10,7 +10,7 @@ ParallaxBackground::ParallaxBackground(std::string era)
 
 void ParallaxBackground::doCreate()
 {
-    if (m_era == "cp" || m_era == "pa") {
+    if (m_era == "cp" || m_era == "pa" || m_era == "utopia") {
         m_layer1_1 = std::make_shared<jt::Sprite>(
             "assets/background/" + m_era + "_1.png", getGame()->gfx().textureManager());
         m_layer2_1 = std::make_shared<jt::Sprite>(
