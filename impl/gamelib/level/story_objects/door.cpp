@@ -3,6 +3,7 @@
 #include "game_properties.hpp"
 
 Door::Door(std::shared_ptr<jt::Box2DWorldInterface> world, jt::Vector2f const& pos)
+    : m_pos { pos }
 {
     b2BodyDef bodyDef;
     bodyDef.fixedRotation = true;
