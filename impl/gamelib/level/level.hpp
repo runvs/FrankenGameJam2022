@@ -3,6 +3,8 @@
 
 #include "coin.hpp"
 #include "level/story_objects/door.hpp"
+#include "level/story_objects/ginkgo_seed.hpp"
+#include "level/story_objects/ginkgo_seed_bed.hpp"
 #include "level/story_objects/keycard.hpp"
 #include "level/story_objects/legonite.hpp"
 #include "level/story_objects/seed_bed.hpp"
@@ -77,10 +79,9 @@ private:
     std::shared_ptr<Tricky> m_tricky { nullptr };
     std::shared_ptr<TrickyWreck> m_wreck { nullptr };
     std::shared_ptr<Legonite> m_legonite { nullptr };
-    /* std::shared_ptr<Legonite> m_legonite { nullptr };
     std::shared_ptr<GinkgoSeed> m_ginkgo_seed { nullptr };
-    std::shared_ptr<GinkgoSeedbed> m_ginkgo_seedbed { nullptr };
-    */
+    std::shared_ptr<GinkgoSeedBed> m_ginkgo_seedbed { nullptr };
+
     std::vector<jt::Vector2f> m_coinPositions {};
 
     void loadLevelSettings(jt::tilemap::TilesonLoader& loader);
