@@ -18,7 +18,7 @@ public:
                "Laguna, Synchronleuchter, Thunraz";
     }
     static std::string JamName() { return "FrankenGameJam2022"; }
-    static std::string JamDate() { return "2022-11"; }
+    static std::string JamDate() { return ""; }
     static std::string ExplanationText()
     {
         return "Win the game\n[W,A,D] to move \n[Space] to jump";

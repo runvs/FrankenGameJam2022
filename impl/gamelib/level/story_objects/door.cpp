@@ -3,6 +3,7 @@
 #include "game_properties.hpp"
 
 Door::Door(std::shared_ptr<jt::Box2DWorldInterface> world, jt::Vector2f const& pos)
+    : m_pos { pos }
 {
     b2BodyDef bodyDef;
     bodyDef.fixedRotation = true;
@@ -13,15 +14,15 @@ Door::Door(std::shared_ptr<jt::Box2DWorldInterface> world, jt::Vector2f const& p
 void Door::doCreate()
 {
     m_shape = std::make_shared<jt::Shape>();
-    m_shape->makeRect(jt::Vector2f { 16.0f, 16.0f }, textureManager());
+    m_shape->makeRect(jt::Vector2f { 8.0f, 24.0f }, textureManager());
     m_shape->setPosition(m_pos);
-    m_shape->setOffset(jt::OffsetMode::CENTER);
+    m_shape->setOffset(jt::OffsetMode::TOPLEFT);
 
     b2FixtureDef fixtureDef;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;
     b2PolygonShape collider {};
-    collider.SetAsBox(16.0f / 2.0f, 16.0f / 2.0f);
+    collider.SetAsBox(8.0f / 2.0f, 24.0f / 2.0f);
     fixtureDef.shape = &collider;
     m_physicsObject->getB2Body()->CreateFixture(&fixtureDef);
     m_physicsObject->setPosition(m_pos);

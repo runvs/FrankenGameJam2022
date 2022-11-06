@@ -362,3 +362,12 @@ void Level::loadCoins(jt::tilemap::TilesonLoader& loader)
         m_coinPositions.push_back(c.position);
     }
 }
+std::vector<jt::Vector2f> Level::getLevelExitPositions() const
+{
+    std::vector<jt::Vector2f> positions;
+    for (auto& e : m_exits) {
+        positions.push_back(e.getPosition());
+    }
+
+    return positions;
+}
