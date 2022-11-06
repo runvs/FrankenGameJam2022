@@ -64,6 +64,73 @@
          "y":0
         }, 
         {
+         "color":"#ffff00",
+         "draworder":"topdown",
+         "id":6,
+         "name":"coins",
+         "objects":[
+                {
+                 "class":"",
+                 "height":8,
+                 "id":21,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":40,
+                 "y":248
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":22,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":80,
+                 "y":272
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":23,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":88,
+                 "y":296
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":24,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":88,
+                 "y":312
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":25,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":88,
+                 "y":328
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "color":"#ff5500",
          "draworder":"topdown",
          "id":5,
@@ -286,8 +353,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":21,
+ "nextlayerid":7,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
