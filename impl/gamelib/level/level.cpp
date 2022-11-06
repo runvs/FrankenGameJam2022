@@ -251,6 +251,13 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_wreck->setGameInstance(getGame());
                 m_wreck->create();
             }
+        } else if (sr.name == "legonite") {
+            if (GP::getPersistentValue("legonite") == 0) {
+                getGame()->logger().info("legonite created", { "story_objects" });
+                m_legonite = std::make_shared<Legonite>(sr.position);
+                m_legonite->setGameInstance(getGame());
+                m_legonite->create();
+            }
         }
     }
 }
@@ -304,6 +311,12 @@ void Level::doUpdate(float const elapsed)
             m_wreck.reset();
         }
     }
+    if (m_legonite) {
+        m_legonite->update(elapsed);
+        if (!m_legonite->isAlive()) {
+            m_legonite.reset();
+        }
+    }
 }
 
 void Level::doDraw() const
@@ -343,6 +356,9 @@ void Level::doDraw() const
     if (m_wreck) {
         m_wreck->draw();
     }
+    if (m_legonite) {
+        m_legonite->draw();
+    }
 }
 
 jt::Vector2f Level::getPlayerStart(std::string const& id) const { return m_startPositions.at(id); }
@@ -378,6 +394,9 @@ void Level::checkIfPlayerIsOnStoryObject(jt::Vector2f const& playerPosition)
     if (m_keycard) {
 
         m_keycard->checkIfPlayerIsOver(playerPosition);
+    }
+    if (m_legonite) {
+        m_legonite->checkIfPlayerIsOver(playerPosition);
     }
 }
 

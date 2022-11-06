@@ -4,6 +4,7 @@
 #include "coin.hpp"
 #include "level/story_objects/door.hpp"
 #include "level/story_objects/keycard.hpp"
+#include "level/story_objects/legonite.hpp"
 #include "level/story_objects/seed_bed.hpp"
 #include "level/story_objects/tricky.hpp"
 #include "level/story_objects/tricky_wreck.hpp"
@@ -75,6 +76,7 @@ private:
 
     std::shared_ptr<Tricky> m_tricky { nullptr };
     std::shared_ptr<TrickyWreck> m_wreck { nullptr };
+    std::shared_ptr<Legonite> m_legonite { nullptr };
     /* std::shared_ptr<Legonite> m_legonite { nullptr };
     std::shared_ptr<GinkgoSeed> m_ginkgo_seed { nullptr };
     std::shared_ptr<GinkgoSeedbed> m_ginkgo_seedbed { nullptr };

@@ -15,7 +15,7 @@ void TrickyWreck::doCreate()
 {
     m_drawable = std::make_shared<jt::Sprite>("assets/level/ufowrack.png", textureManager());
     m_drawable->setPosition(m_pos);
-    
+
     b2FixtureDef fixtureDef;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;
