@@ -390,6 +390,7 @@ void jt::LicenseInfo::doUpdate(float const)
 void jt::LicenseInfo::doDraw() const
 {
     if (m_showLicenseInfo) {
+        ImGui::SetNextWindowSize(ImVec2 { 800.0f, 600.0f }, ImGuiCond_FirstUseEver);
         ImGui::Begin("License Info", &m_showLicenseInfo);
         ImGui::BeginChild("L");
         for (auto i = 0U; i != m_licenseTexts.size(); ++i) {

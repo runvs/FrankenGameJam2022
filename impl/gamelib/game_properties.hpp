@@ -11,13 +11,17 @@ class GP {
 public:
     GP() = delete;
 
-    static std::string GameName() { return "MyAwesomeGame"; }
-    static std::string AuthorName() { return "TODO"; }
-    static std::string JamName() { return "TODO"; }
-    static std::string JamDate() { return "TODO"; }
+    static std::string GameName() { return "Tworld"; }
+    static std::string AuthorName()
+    {
+        return "Adkiem, Aneira, BloodyOrange,\n"
+               "Laguna, Synchronleuchter, Thunraz";
+    }
+    static std::string JamName() { return "FrankenGameJam2022"; }
+    static std::string JamDate() { return "2022-11"; }
     static std::string ExplanationText()
     {
-        return "Win the game\n[W,A,S,D] to move \n[Space] to jump";
+        return "Win the game\n[W,A,D] to move \n[Space] to jump";
     }
 
     static jt::Vector2f GetWindowSize() { return jt::Vector2f { 1200, 800 }; }
