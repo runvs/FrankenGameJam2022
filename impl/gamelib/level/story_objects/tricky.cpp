@@ -22,7 +22,7 @@ void Tricky::doCreate()
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;
     b2PolygonShape collider {};
-    collider.SetAsBox(67.0f / 2.0f, 46.0f / 2.0f);
+    collider.SetAsBox(27.0f / 2.0f, 46.0f / 2.0f);
     fixtureDef.shape = &collider;
     m_physicsObject->getB2Body()->CreateFixture(&fixtureDef);
     m_physicsObject->setPosition(m_pos);
