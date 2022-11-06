@@ -1,5 +1,4 @@
 #include "screen_wrap.hpp"
-#include <iostream>
 
 void jt::wrapOnScreen(jt::DrawableInterface& drawable, float margin)
 {
@@ -9,17 +8,23 @@ void jt::wrapOnScreen(jt::DrawableInterface& drawable, float margin)
 
     if (screenSize.x == 0 || screenSize.y == 0) {
         return;
-    };
+    }
 
-    if (posScreen.x < -margin) {
-        posWorld.x += screenSize.x + margin;
-    } else if (posScreen.x > screenSize.x + margin) {
-        posWorld.x -= screenSize.x + margin;
+    if (drawable.getCamMovementFactor().x != 0.0f) {
+        if (posScreen.x < -margin) {
+            posWorld.x += screenSize.x + margin;
+        } else if (posScreen.x > screenSize.x) {
+            posWorld.x -= screenSize.x + margin;
+        }
     }
-    if (posScreen.y < -margin) {
-        posWorld.y += screenSize.y + margin;
-    } else if (posScreen.y > screenSize.y + margin) {
-        posWorld.y -= screenSize.y + margin;
+
+    if (drawable.getCamMovementFactor().y != 0.0f) {
+        if (posScreen.y < -margin) {
+            posWorld.y += screenSize.y + margin;
+        } else if (posScreen.y > screenSize.y + margin) {
+            posWorld.y -= screenSize.y + margin;
+        }
     }
+
     drawable.setPosition(posWorld);
 }

@@ -8,7 +8,7 @@ namespace jt {
 
 /// wrap drawbel on screen.
 /// \param drawable
-void wrapOnScreen(jt::DrawableInterface& drawable, float margin = 10.0f);
+void wrapOnScreen(jt::DrawableInterface& drawable, float margin);
 
 } // namespace jt
 
