@@ -236,8 +236,15 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_door->setGameInstance(getGame());
                 m_door->create();
             }
-        } // TODO: "tricky", "legonite"
-        // TODO: gingko seed?
+
+        } else if (sr.name == "tricky") {
+            getGame()->logger().info("tricky created", { "story_objects" });
+            m_tricky = std::make_shared<Tricky>(m_world.lock(), sr.position);
+            m_tricky->setGameInstance(getGame());
+            m_tricky->create();
+            // TODO: "tricky", "legonite"
+            // TODO: gingko seed?
+        }
     }
 }
 
@@ -316,6 +323,9 @@ void Level::doDraw() const
     }
     if (m_door) {
         m_door->draw();
+    }
+    if (m_tricky) {
+        m_tricky->draw();
     }
 }
 

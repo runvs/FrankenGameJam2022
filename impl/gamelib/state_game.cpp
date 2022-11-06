@@ -131,10 +131,10 @@ void StateGame::doInternalUpdate(float const elapsed)
     }
 
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F2)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_10_pa.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_10_cp.json"));
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F3)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_6_pa.json"));
+        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_10_pa.json"));
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F5)) {
         getGame()->stateManager().switchState(std::make_shared<StateGame>("level_13.json"));
