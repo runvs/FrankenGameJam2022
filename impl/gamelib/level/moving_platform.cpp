@@ -5,12 +5,13 @@
 
 MovingPlatform::MovingPlatform(std::shared_ptr<jt::Box2DWorldInterface> world,
     jt::Vector2f const& size, std::vector<std::pair<jt::Vector2f, float>> const& positions,
-    float velocity, float timeoffset)
+    float velocity, float timeoffset, std::string const& era)
 {
     m_platformSize = size;
     m_positions = positions;
     m_velocity = velocity;
     m_timeOffset = timeoffset;
+    m_era = era;
 
     b2BodyDef bodyDef;
     bodyDef.fixedRotation = true;
@@ -42,9 +43,12 @@ void MovingPlatform::doCreate()
     m_physicsObject->setPosition(p1);
     //    m_physicsObject->setVelocity(m_currentVelocity);
 
-    m_spriteL = std::make_shared<jt::Sprite>("assets/level/platform_l.png", textureManager());
-    m_spriteM = std::make_shared<jt::Sprite>("assets/level/platform_m.png", textureManager());
-    m_spriteR = std::make_shared<jt::Sprite>("assets/level/platform_r.png", textureManager());
+    m_spriteL = std::make_shared<jt::Sprite>(
+        "assets/level/" + m_era + "_platform_l.png", textureManager());
+    m_spriteM = std::make_shared<jt::Sprite>(
+        "assets/level/" + m_era + "_platform_m.png", textureManager());
+    m_spriteR = std::make_shared<jt::Sprite>(
+        "assets/level/" + m_era + "_platform_r.png", textureManager());
 }
 
 bool MovingPlatform::moveFromTo(
