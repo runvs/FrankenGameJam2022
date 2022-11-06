@@ -244,6 +244,13 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
             m_tricky->create();
             // TODO: "tricky", "legonite"
             // TODO: gingko seed?
+        } else if (sr.name == "wreck") {
+            if (GP::getPersistentValue("legonite") == 0) {
+                getGame()->logger().info("wreck created", { "story_objects" });
+                m_wreck = std::make_shared<TrickyWreck>(m_world.lock(), sr.position);
+                m_wreck->setGameInstance(getGame());
+                m_wreck->create();
+            }
         }
     }
 }
@@ -291,6 +298,12 @@ void Level::doUpdate(float const elapsed)
             m_door.reset();
         }
     }
+    if (m_wreck) {
+        m_wreck->update(elapsed);
+        if (!m_wreck->isAlive()) {
+            m_wreck.reset();
+        }
+    }
 }
 
 void Level::doDraw() const
@@ -326,6 +339,9 @@ void Level::doDraw() const
     }
     if (m_tricky) {
         m_tricky->draw();
+    }
+    if (m_wreck) {
+        m_wreck->draw();
     }
 }
 
