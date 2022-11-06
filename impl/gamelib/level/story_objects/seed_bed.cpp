@@ -22,27 +22,21 @@ void SeedBed::checkIfPlayerIsOver(jt::Vector2f const& playerPosition)
 
 void SeedBed::doCreate()
 {
-    // TODO load real graphics
-    m_shape1 = std::make_shared<jt::Shape>();
-    m_shape1->makeRect(jt::Vector2f { 8.0f, 8.0f }, textureManager());
-    m_shape1->setPosition(m_pos);
-    m_shape1->setColor(jt::colors::Yellow);
-
-    m_shape2 = std::make_shared<jt::Shape>();
-    m_shape2->makeRect(jt::Vector2f { 8.0f, 8.0f }, textureManager());
-    m_shape2->setPosition(m_pos);
-    m_shape2->setColor(jt::colors::Green);
+    m_unplanted = std::make_shared<jt::Sprite>(
+        "assets/level/tileset_cyberpunk.png", jt::Recti { 0, 32, 32, 8 }, textureManager());
+    m_planted = std::make_shared<jt::Sprite>(
+        "assets/seeded_tree.png", jt::Recti { 0, 0, 32, 20 }, textureManager());
 }
-void SeedBed::doUpdate(float const elapsed)
-{
-    m_shape1->update(elapsed);
-    m_shape2->update(elapsed);
-}
+void SeedBed::doUpdate(float const elapsed) { }
 void SeedBed::doDraw() const
 {
     if (GP::getPersistentValue("seedbed") == 0) {
-        m_shape1->draw(renderTarget());
+        m_unplanted->setPosition(m_pos - jt::Vector2f { 0.0f, 0.0f });
+        m_unplanted->update(0.0f);
+        m_unplanted->draw(renderTarget());
     } else {
-        m_shape2->draw(renderTarget());
+        m_planted->setPosition(m_pos - jt::Vector2f { 0.0f, 12.0f });
+        m_planted->update(0.0f);
+        m_planted->draw(renderTarget());
     }
 }

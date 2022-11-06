@@ -11,8 +11,7 @@ public:
 
 private:
     jt::Vector2f m_pos { 0.0f, 0.0f };
-    // TODO switch to seed graphic
-    std::shared_ptr<jt::Shape> m_shape;
+    mutable std::shared_ptr<jt::DrawableInterface> m_drawable { nullptr };
 
     void doCreate() override;
     void doUpdate(float const elapsed) override;

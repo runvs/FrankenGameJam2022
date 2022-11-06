@@ -14,11 +14,8 @@ ObstacleTree::ObstacleTree(std::shared_ptr<jt::Box2DWorldInterface> world, jt::V
 
 void ObstacleTree::doCreate()
 {
-    m_shape = std::make_shared<jt::Shape>();
-    m_shape->makeRect(jt::Vector2f { 16.0f, 16.0f }, textureManager());
-    m_shape->setPosition(m_pos);
-    m_shape->setOffset(jt::OffsetMode::CENTER);
-
+    m_drawable = std::make_shared<jt::Sprite>(
+        "assets/baum.png", jt::Recti { 0, 0, 16, 16 }, textureManager());
     b2FixtureDef fixtureDef;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;
@@ -29,13 +26,13 @@ void ObstacleTree::doCreate()
     m_physicsObject->setPosition(m_pos);
 }
 
-void ObstacleTree::doUpdate(float const elapsed) { m_shape->update(elapsed); }
+void ObstacleTree::doUpdate(float const elapsed) { }
 
 void ObstacleTree::doDraw() const
 {
     if (GP::getPersistentValue("seed") != 0) {
-        m_shape->draw(renderTarget());
+        m_drawable->setPosition(m_pos - jt::Vector2f { 8.0f, 8.0f });
+        m_drawable->update(0.0f);
+        m_drawable->draw(renderTarget());
     }
 }
-// TODO: Contact seedbed and change it
-// TODO: When seedbed is changed, remove tree obstacle

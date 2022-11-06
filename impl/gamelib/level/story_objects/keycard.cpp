@@ -23,14 +23,15 @@ void Keycard::checkIfPlayerIsOver(jt::Vector2f const& playerPosition)
 }
 void Keycard::doCreate()
 {
-    m_shape = std::make_shared<jt::Shape>();
-    m_shape->makeRect(jt::Vector2f { 8.0f, 8.0f }, textureManager());
-    m_shape->setPosition(m_pos);
+    m_drawable = std::make_shared<jt::Sprite>(
+        "assets/level/tileset_cyberpunk.png", jt::Recti { 88, 8, 8, 8 }, textureManager());
 }
-void Keycard::doUpdate(float const elapsed) { m_shape->update(elapsed); }
+void Keycard::doUpdate(float const elapsed) { }
 void Keycard::doDraw() const
 {
     if (GP::getPersistentValue(m_name) == 0) {
-        m_shape->draw(renderTarget());
+        m_drawable->setPosition(m_pos - jt::Vector2f { 0.0f, 0.0f });
+        m_drawable->update(0.0f);
+        m_drawable->draw(renderTarget());
     }
 }

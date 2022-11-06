@@ -13,7 +13,7 @@ private:
     std::shared_ptr<jt::Box2DObject> m_physicsObject;
 
     jt::Vector2f m_pos { 0.0f, 0.0f };
-    std::shared_ptr<jt::Shape> m_shape;
+    mutable std::shared_ptr<jt::DrawableInterface> m_drawable { nullptr };
 
     void doCreate() override;
     void doUpdate(float const elapsed) override;

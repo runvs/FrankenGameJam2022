@@ -10,24 +10,25 @@ Seed::Seed(jt::Vector2f const& pos)
 
 void Seed::doCreate()
 {
-    m_shape = std::make_shared<jt::Shape>();
-    m_shape->makeRect(jt::Vector2f { 8.0f, 8.0f }, textureManager());
-    m_shape->setPosition(m_pos);
+    m_drawable = std::make_shared<jt::Sprite>(
+        "assets/baum_setzling.png", jt::Recti { 0, 0, 13, 12 }, textureManager());
 }
 
-void Seed::doUpdate(float const elapsed) { m_shape->update(elapsed); }
+void Seed::doUpdate(float const elapsed) { }
 
 void Seed::doDraw() const
 {
     if (GP::getPersistentValue("seed") == 0) {
-        m_shape->draw(renderTarget());
+        m_drawable->setPosition(m_pos - jt::Vector2f { 0.0f, 6.0f });
+        m_drawable->update(0.0f);
+        m_drawable->draw(renderTarget());
     }
 }
 
 void Seed::checkIfPlayerIsOver(jt::Vector2f const& playerPosition)
 {
     if (GP::getPersistentValue("seed") == 0) {
-        jt::Rectf const rect { m_pos.x, m_pos.y, 8.0f, 8.0f };
+        jt::Rectf const rect { m_pos.x, m_pos.y, 13.0f, 12.0f };
         if (jt::MathHelper::checkIsIn(rect, playerPosition)) {
             getGame()->logger().info("Player picks up seed", { "demo", "story_objects" });
             GP::setPersistentValue("seed", 1);
