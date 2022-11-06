@@ -13,7 +13,7 @@ Legonite::Legonite(jt::Vector2f const& pos)
 void Legonite::doCreate()
 {
     m_drawable = std::make_shared<jt::Sprite>("assets/level/legonite.png", textureManager());
-    m_drawable->setPosition(m_pos);
+    m_drawable->setPosition(m_pos + jt::Vector2f { -8.0f, -8.0f });
 }
 void Legonite::doUpdate(float const elapsed) { m_drawable->update(elapsed); }
 void Legonite::doDraw() const { m_drawable->draw(renderTarget()); }

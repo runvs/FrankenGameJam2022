@@ -30,7 +30,7 @@ void Tricky::doCreate()
 void Tricky::doUpdate(float const elapsed) { }
 void Tricky::doDraw() const
 {
-    if (GP::getPersistentValue("tricky") == 0) {
+    if (GP::getPersistentValue("legonite") == 0) {
         m_want->setPosition(m_pos - jt::Vector2f { 67.0f / 2.0f, 46.0f / 2.0f });
         m_want->update(0.0f);
         m_want->draw(renderTarget());
