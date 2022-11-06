@@ -47,6 +47,10 @@ void StateGame::doInternalCreate()
     if (getGame()->audio().getPermanentSound("portal") == nullptr) {
         getGame()->audio().addPermanentSound("portal", "assets/sound/portal.ogg");
     }
+
+    if (getGame()->audio().getPermanentSound("coin_pickup") == nullptr) {
+        getGame()->audio().addPermanentSound("coin_pickup", "assets/sound/player_pickup.ogg");
+    }
 }
 
 void StateGame::loadLevel()
@@ -91,6 +95,8 @@ void StateGame::doInternalUpdate(float const elapsed)
             auto c = coin.lock();
             if (c->canBePickedUp()) {
                 if (jt::MathHelper::checkIsIn(playerRect, c->getPosition())) {
+                    getGame()->audio().getPermanentSound("coin_pickup")->play();
+
                     c->pickUp();
                     m_coinCounter++;
                     // TODO add hud display
