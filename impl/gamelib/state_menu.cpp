@@ -34,6 +34,10 @@ void StateMenu::doInternalCreate()
 
     getGame()->stateManager().setTransition(std::make_shared<jt::StateManagerTransitionFadeToBlack>(
         GP::GetScreenSize(), textureManager()));
+
+    m_menuMusic = getGame()->audio().addPermanentSound("music", "assets/music/menu_music.ogg");
+    m_menuMusic->setVolume(0.2f);
+    m_menuMusic->play();
 }
 
 void StateMenu::createVignette()
@@ -185,6 +189,10 @@ void StateMenu::createTweenCreditsPosition()
 
 void StateMenu::doInternalUpdate(float const elapsed)
 {
+    if (!m_menuMusic->isPlaying()) {
+        m_menuMusic->play();
+    }
+
     updateDrawables(elapsed);
     checkForTransitionToStateGame();
     jt::Vector2f const& axis = getGame()->input().gamepad(0)->getAxis(jt::GamepadAxisCode::ARight);
@@ -218,6 +226,7 @@ void StateMenu::startTransitionToStateGame()
 {
     if (!m_started) {
         m_started = true;
+        m_menuMusic->stop();
 
         getGame()->stateManager().switchState(std::make_shared<StateGame>());
     }
