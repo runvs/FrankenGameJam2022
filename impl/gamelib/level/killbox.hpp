@@ -10,7 +10,8 @@
 // TODO think about interface
 class Killbox : public jt::GameObject {
 public:
-    Killbox(jt::Rectf const& rect, std::string const& name, std::string const& type);
+    Killbox(jt::Rectf const& rect, std::string const& name, std::string const& type,
+        std::string const& era);
     void checkIfPlayerIsInKillbox(
         jt::Vector2f const& playerPosition, std::function<void(void)> callback) const;
 
@@ -25,6 +26,7 @@ private:
 
     std::string m_name { "" };
     std::string m_type { "" };
+    std::string const& m_era;
 
     void doCreate() override;
     void doUpdate(float const elapsed) override;

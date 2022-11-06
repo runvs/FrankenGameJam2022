@@ -4,22 +4,26 @@
 #include <math_helper.hpp>
 #include <sprite.hpp>
 
-Killbox::Killbox(jt::Rectf const& rect, std::string const& name, std::string const& type)
+Killbox::Killbox(
+    jt::Rectf const& rect, std::string const& name, std::string const& type, std::string const& era)
     : m_rect { rect }
     , m_name { name }
     , m_type { type }
+    , m_era { era }
 {
 }
 
 void Killbox::doCreate()
 {
+    std::string const tileset = m_era == "pa" ? "wasteland" : "cyberpunk";
+
     if (m_type == "spike_down") {
-        m_drawable = std::make_shared<jt::Sprite>("assets/level/V3_complete_Tileset_8x8.png",
-            jt::Recti { 112, 40, 8, 8 }, textureManager());
+        m_drawable = std::make_shared<jt::Sprite>("assets/level/tileset_" + tileset + ".png",
+            jt::Recti { 88, 16, 8, 8 }, textureManager());
 
     } else if (m_type == "spike_up") {
-        m_drawable = std::make_shared<jt::Sprite>("assets/level/V3_complete_Tileset_8x8.png",
-            jt::Recti { 120, 40, 8, 8 }, textureManager());
+        m_drawable = std::make_shared<jt::Sprite>("assets/level/tileset_" + tileset + ".png",
+            jt::Recti { 96, 16, 8, 8 }, textureManager());
     }
 }
 void Killbox::doUpdate(float const elapsed)

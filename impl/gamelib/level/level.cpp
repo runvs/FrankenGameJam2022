@@ -131,8 +131,9 @@ void Level::loadLevelKillboxes(jt::tilemap::TilesonLoader& loader)
             type = i.properties.strings.at("type");
         }
         auto kb = std::make_shared<Killbox>(
-            jt::Rectf { i.position.x, i.position.y, i.size.x, i.size.y }, name, type);
+            jt::Rectf { i.position.x, i.position.y, i.size.x, i.size.y }, name, type, m_levelEra);
         kb->setGameInstance(getGame());
+
         kb->create();
         m_killboxes.push_back(kb);
     }
