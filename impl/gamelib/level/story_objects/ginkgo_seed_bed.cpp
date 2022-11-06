@@ -10,7 +10,7 @@ GinkgoSeedBed::GinkgoSeedBed(jt::Vector2f const& pos)
 
 void GinkgoSeedBed::checkIfPlayerIsOver(jt::Vector2f const& playerPosition)
 {
-    jt::Rectf const rect { m_pos.x, m_pos.y, 32.0f, 8.0f };
+    jt::Rectf const rect { m_pos.x, m_pos.y, 32.0f, 320.0f };
     if (jt::MathHelper::checkIsIn(rect, playerPosition)) {
         getGame()->logger().info("Player walks over ginkgo seedbed", { "story_objects" });
         if (GP::getPersistentValue("ginkgo_seed") == 1
