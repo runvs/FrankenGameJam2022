@@ -220,7 +220,7 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_obstacle_tree->create();
             }
         } else if (strutil::starts_with(sr.name, "keycard")) {
-            if (GP::getPersistentValue(sr.name) != 0) {
+            if (GP::getPersistentValue(sr.name) == 0) {
                 getGame()->logger().info("'" + sr.name + "' created", { "story_objects" });
                 m_keycard = std::make_shared<Keycard>(sr.position, sr.name);
                 m_keycard->setGameInstance(getGame());
@@ -234,7 +234,8 @@ void Level::loadStoryObjects(jt::tilemap::TilesonLoader& loader)
                 m_door->setGameInstance(getGame());
                 m_door->create();
             }
-        }
+        } // TODO: "tricky", "legonite"
+        // TODO: gingko seed?
     }
 }
 

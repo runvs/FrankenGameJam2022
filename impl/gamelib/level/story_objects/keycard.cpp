@@ -30,7 +30,7 @@ void Keycard::doCreate()
 void Keycard::doUpdate(float const elapsed) { m_shape->update(elapsed); }
 void Keycard::doDraw() const
 {
-    if (GP::getPersistentValue("seed") == 0) {
+    if (GP::getPersistentValue(m_name) == 0) {
         m_shape->draw(renderTarget());
     }
 }
