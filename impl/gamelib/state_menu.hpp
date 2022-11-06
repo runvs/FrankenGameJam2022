@@ -24,7 +24,7 @@ private:
     std::shared_ptr<jt::SoundInterface> m_menuMusic;
     std::shared_ptr<jt::Animation> m_logo;
 
-    std::shared_ptr<jt::Shape> m_background;
+    std::shared_ptr<jt::Sprite> m_background;
 
     std::shared_ptr<jt::Text> m_textStart;
     std::shared_ptr<jt::Text> m_textExplanation;

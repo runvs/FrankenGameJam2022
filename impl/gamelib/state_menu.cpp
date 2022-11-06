@@ -55,6 +55,7 @@ void StateMenu::createLogo()
             25, 26, 27, 28, 29, 30, 31 },
         0.1f, textureManager());
     m_logo->play("logo");
+
     m_logo->setOrigin(jt::OriginMode::CENTER);
     m_logo->setScale(jt::Vector2f { 2.0f, 2.0f });
     m_logo->setPosition(jt::Vector2f { GP::GetScreenSize().x / 2 + 7, 40 });
@@ -62,8 +63,7 @@ void StateMenu::createLogo()
 
 void StateMenu::createShapes()
 {
-    m_background
-        = jt::dh::createShapeRect(GP::GetScreenSize(), GP::PaletteBackground(), textureManager());
+    m_background = std::make_shared<jt::Sprite>("assets/background/cp_1.png", textureManager());
     m_overlay = jt::dh::createShapeRect(GP::GetScreenSize(), jt::colors::Black, textureManager());
 }
 
