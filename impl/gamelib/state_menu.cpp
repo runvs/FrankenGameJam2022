@@ -35,7 +35,7 @@ void StateMenu::doInternalCreate()
     getGame()->stateManager().setTransition(std::make_shared<jt::StateManagerTransitionFadeToBlack>(
         GP::GetScreenSize(), textureManager()));
 
-    m_menuMusic = getGame()->audio().addPermanentSound("music", "assets/music/menu_music.ogg");
+    m_menuMusic = getGame()->audio().addPermanentSound("menu_music", "assets/music/menu_music.ogg");
     m_menuMusic->setVolume(0.2f);
     m_menuMusic->play();
 }

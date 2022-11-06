@@ -26,6 +26,8 @@ public:
     StateGame(std::string const& levelName = "level_0.json", std::string const& targetId = "0");
 
 private:
+    std::shared_ptr<jt::SoundInterface> m_music;
+
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
 
     std::string m_levelName { "" };

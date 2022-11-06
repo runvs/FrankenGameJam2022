@@ -51,6 +51,12 @@ void StateGame::doInternalCreate()
     if (getGame()->audio().getPermanentSound("coin_pickup") == nullptr) {
         getGame()->audio().addPermanentSound("coin_pickup", "assets/sound/player_pickup.ogg");
     }
+
+    if (getGame()->audio().getPermanentSound("main_music") == nullptr) {
+        m_music = getGame()->audio().addPermanentSound("main_music", "assets/music/main_music.ogg");
+        m_music->setVolume(0.2f);
+        m_music->play();
+    }
 }
 
 void StateGame::loadLevel()
@@ -71,6 +77,10 @@ void StateGame::loadLevel()
 void StateGame::doInternalUpdate(float const elapsed)
 {
     if (!m_ending && !getGame()->stateManager().getTransition()->isInProgress()) {
+        if (!m_music->isPlaying()) {
+            m_music->play();
+        }
+
         m_world->step(elapsed, GP::PhysicVelocityIterations(), GP::PhysicPositionIterations());
 
         if (!m_player->isAlive()) {
