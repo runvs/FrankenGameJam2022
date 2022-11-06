@@ -24,6 +24,7 @@
 void StateMenu::doInternalCreate()
 {
     GP::resetAllPersistentValues();
+    createLogo();
     createMenuText();
     createShapes();
     createVignette();
@@ -46,6 +47,19 @@ void StateMenu::createVignette()
     add(m_vignette);
 }
 
+void StateMenu::createLogo()
+{
+    m_logo = std::make_shared<jt::Animation>();
+    m_logo->add("assets/Tworld.png", "logo", jt::Vector2u { 148, 43 },
+        { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+            25, 26, 27, 28, 29, 30, 31 },
+        0.1f, textureManager());
+    m_logo->play("logo");
+    m_logo->setOrigin(jt::OriginMode::CENTER);
+    m_logo->setScale(jt::Vector2f { 2.0f, 2.0f });
+    m_logo->setPosition(jt::Vector2f { GP::GetScreenSize().x / 2 + 7, 40 });
+}
+
 void StateMenu::createShapes()
 {
     m_background
@@ -55,7 +69,6 @@ void StateMenu::createShapes()
 
 void StateMenu::createMenuText()
 {
-    createTextTitle();
     createTextStart();
     createTextExplanation();
     createTextCredits();
@@ -100,18 +113,9 @@ void StateMenu::createTextStart()
     m_textStart->setShadow(GP::PaletteFontShadow(), jt::Vector2f { 3, 3 });
 }
 
-void StateMenu::createTextTitle()
-{
-    float half_width = GP::GetScreenSize().x / 2;
-    m_textTitle = jt::dh::createText(renderTarget(), GP::GameName(), 48U, GP::PaletteFontFront());
-    m_textTitle->setPosition({ half_width, 5 });
-    m_textTitle->setShadow(GP::PaletteFontShadow(), jt::Vector2f { 4, 4 });
-}
-
 void StateMenu::createTweens()
 {
     createTweenOverlayAlpha();
-    createTweenTitleAlpha();
     createTweenCreditsPosition();
     createTweenExplanation();
 }
@@ -149,14 +153,6 @@ void StateMenu::createTweenExplanation()
     tween->setSkipFrames();
 
     tween->addCompleteCallback([this]() { createInstructionTweenColor1(); });
-    add(tween);
-}
-
-void StateMenu::createTweenTitleAlpha()
-{
-    auto tween = jt::TweenAlpha::create(m_textTitle, 0.55f, 0, 255);
-    tween->setStartDelay(0.2f);
-    tween->setSkipFrames();
     add(tween);
 }
 
@@ -201,7 +197,7 @@ void StateMenu::doInternalUpdate(float const elapsed)
 void StateMenu::updateDrawables(const float& elapsed)
 {
     m_background->update(elapsed);
-    m_textTitle->update(elapsed);
+    m_logo->update(elapsed);
     m_textStart->update(elapsed);
     m_textExplanation->update(elapsed);
     m_textCredits->update(elapsed);
@@ -235,8 +231,7 @@ void StateMenu::startTransitionToStateGame()
 void StateMenu::doInternalDraw() const
 {
     m_background->draw(renderTarget());
-
-    m_textTitle->draw(renderTarget());
+    m_logo->draw(renderTarget());
     m_textStart->draw(renderTarget());
     m_textExplanation->draw(renderTarget());
     m_textCredits->draw(renderTarget());
