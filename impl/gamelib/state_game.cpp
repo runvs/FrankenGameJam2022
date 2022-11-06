@@ -59,6 +59,8 @@ void StateGame::doInternalCreate()
             "assets/music/main_music_intro.ogg", "assets/music/main_music.ogg", effect);
         m_music->setVolume(0.2f);
         m_music->play();
+    } else {
+        m_music = getGame()->audio().getPermanentSound("main_music");
     }
 }
 
