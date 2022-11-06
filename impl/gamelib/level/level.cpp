@@ -52,7 +52,7 @@ void Level::loadEnemies(jt::tilemap::TilesonLoader& loader)
                 movement = std::make_shared<EnemyMovementVertical>(enemy.position.y,
                     enemy.position.y + enemy.properties.ints.at("distance_in_tiles") * 8.0f);
             }
-            auto bee = std::make_shared<Bee>(m_world.lock(), enemy.position, movement);
+            auto bee = std::make_shared<Drone>(m_world.lock(), enemy.position, movement);
             bee->setGameInstance(getGame());
             bee->create();
             m_bees.push_back(bee);

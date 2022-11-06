@@ -8,7 +8,7 @@
 #include "parallax_background.hpp"
 #include <box2dwrapper/box2d_object.hpp>
 #include <box2dwrapper/box2d_world_interface.hpp>
-#include <enemies/bee.hpp>
+#include <enemies/drone.hpp>
 #include <game_object.hpp>
 #include <level/exit.hpp>
 #include <level/killbox.hpp>
@@ -55,7 +55,7 @@ private:
     std::shared_ptr<jt::tilemap::TileLayer> m_tileLayerGround { nullptr };
     std::map<std::string, jt::Vector2f> m_startPositions { { "0", { 0.0f, 0.0f } } };
     // TODO create enemy interface/base class
-    std::vector<std::shared_ptr<Bee>> m_bees {};
+    std::vector<std::shared_ptr<Drone>> m_bees {};
 
     std::vector<std::shared_ptr<Killbox>> m_killboxes {};
     std::vector<Exit> m_exits {};

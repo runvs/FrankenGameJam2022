@@ -17,8 +17,8 @@ void Player::doCreate()
 {
     m_animation = std::make_shared<jt::Animation>();
 
-    m_animation->loadFromJson("assets/player/hero_8x8.json", textureManager());
-    m_animation->play("right");
+    m_animation->loadFromJson("assets/player/Player.json", textureManager());
+    m_animation->play("Idle");
     m_animation->setOffset(jt::OffsetMode::CENTER);
 
     b2FixtureDef fixtureDef;
@@ -96,6 +96,7 @@ void Player::updateAnimation(float elapsed)
         m_animation->play("left");
         m_isMoving = true;
     } else {
+        m_animation->play("Idle");
         m_isMoving = false;
     }
     auto const v = m_horizontalMovement ? abs(m_physicsObject->getVelocity().x) / 90.0f : 0.0f;
