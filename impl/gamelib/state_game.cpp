@@ -29,6 +29,7 @@ void StateGame::doInternalCreate()
     getGame()->logger().error(
         "state game create called with " + std::to_string(m_coinCounter) + "coins",
         { "game", "coins" });
+
     auto contactManager = std::make_shared<jt::Box2DContactManager>();
     auto loggingContactManager
         = std::make_shared<jt::LoggingBox2DContactManager>(contactManager, getGame()->logger());
@@ -124,25 +125,6 @@ void StateGame::doInternalUpdate(float const elapsed)
         }
 
         m_portalParticleCounter = 15;
-    }
-
-    if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F1)
-        || getGame()->input().keyboard()->justPressed(jt::KeyCode::Escape)) {
-
-        getGame()->stateManager().switchState(std::make_shared<StateMenu>());
-    }
-
-    if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F2)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_10_cp.json"));
-    }
-    if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F3)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_10_pa.json"));
-    }
-    if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F5)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_13.json"));
-    }
-    if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F6)) {
-        getGame()->stateManager().switchState(std::make_shared<StateGame>("level_11.json"));
     }
 }
 void StateGame::updateCoins()
