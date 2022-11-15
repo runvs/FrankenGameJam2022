@@ -158,7 +158,13 @@ void StateGame::endGame()
 {
     if (!m_ending) {
         m_ending = true;
-        getGame()->stateManager().switchState(std::make_shared<StateGame>(m_levelName));
+        m_coinCounter -= 10;
+        if (m_coinCounter < 0) {
+            getGame()->stateManager().switchState(std::make_shared<StateMenu>());
+        } else {
+            getGame()->stateManager().switchState(
+                std::make_shared<StateGame>(m_levelName, "0", m_coinCounter));
+        }
     }
 }
 
