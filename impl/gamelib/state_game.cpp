@@ -6,6 +6,7 @@
 #include <contact_callbacks/contact_callback_player_ground.hpp>
 #include <game_interface.hpp>
 #include <game_properties.hpp>
+#include <hud/hud.hpp>
 #include <input/input_manager.hpp>
 #include <oalpp/effects/utility/gain.hpp>
 #include <player/platform_player.hpp>
@@ -16,14 +17,18 @@
 #include <tweens/tween_rotation.hpp>
 #include <tweens/tween_scale.hpp>
 
-StateGame::StateGame(std::string const& levelName, std::string const& targetId)
+StateGame::StateGame(std::string const& levelName, std::string const& targetId, int coinCounter)
 {
     m_levelName = levelName;
     m_targetId = targetId;
+    m_coinCounter = coinCounter;
 }
 
 void StateGame::doInternalCreate()
 {
+    getGame()->logger().error(
+        "state game create called with " + std::to_string(m_coinCounter) + "coins",
+        { "game", "coins" });
     auto contactManager = std::make_shared<jt::Box2DContactManager>();
     auto loggingContactManager
         = std::make_shared<jt::LoggingBox2DContactManager>(contactManager, getGame()->logger());
@@ -40,6 +45,10 @@ void StateGame::doInternalCreate()
     auto playerEnemyContactListener = std::make_shared<ContactCallbackPlayerEnemy>();
     playerEnemyContactListener->setPlayer(m_player);
     m_world->getContactManager().registerCallback("player_enemy", playerEnemyContactListener);
+
+    m_hud = std::make_shared<Hud>();
+    add(m_hud);
+    m_hud->getObserverScore()->notify(m_coinCounter);
 
     m_vignette = std::make_shared<jt::Vignette>(GP::GetScreenSize());
     add(m_vignette);
@@ -98,35 +107,13 @@ void StateGame::doInternalUpdate(float const elapsed)
                     getGame()->audio().getPermanentSound("portal")->play();
                     m_ending = true;
                     getGame()->stateManager().switchState(
-                        std::make_shared<StateGame>(newLevelName, newLevelTargetId));
+                        std::make_shared<StateGame>(newLevelName, newLevelTargetId, m_coinCounter));
                 }
             });
 
         m_level->checkIfPlayerIsOnStoryObject(m_player->getPosition());
 
-        jt::Rectf playerRect { m_player->getPosition().x - 6.0f, m_player->getPosition().y - 6.0f,
-            12.0f, 12.0f };
-        for (auto& coin : *m_coins) {
-            auto c = coin.lock();
-            if (c->canBePickedUp()) {
-                if (jt::MathHelper::checkIsIn(playerRect, c->getPosition())) {
-                    getGame()->audio().getPermanentSound("coin_pickup")->play();
-
-                    c->pickUp();
-                    m_coinCounter++;
-                    // TODO add hud display
-
-                    c->getDrawable()->flash(0.39f, jt::Color { 255, 255, 255, 150 });
-                    auto twa = jt::TweenAlpha::create(c->getDrawable(), 0.4f, 255, 0);
-                    add(twa);
-
-                    auto tws = jt::TweenScale::create(c->getDrawable(), 0.4f,
-                        jt::Vector2f { 1.0f, 1.0f }, jt::Vector2f { 3.0f, 3.0f });
-                    tws->addCompleteCallback([c]() { c->kill(); });
-                    add(tws);
-                }
-            }
-        }
+        updateCoins();
 
         handleCameraScrolling(elapsed);
     }
@@ -156,6 +143,32 @@ void StateGame::doInternalUpdate(float const elapsed)
     }
     if (getGame()->input().keyboard()->justPressed(jt::KeyCode::F6)) {
         getGame()->stateManager().switchState(std::make_shared<StateGame>("level_11.json"));
+    }
+}
+void StateGame::updateCoins()
+{
+    jt::Rectf playerRect { m_player->getPosition().x - 6.0f, m_player->getPosition().y - 6.0f,
+        12.0f, 12.0f };
+    for (auto& coin : *m_coins) {
+        auto c = coin.lock();
+        if (c->canBePickedUp()) {
+            if (jt::MathHelper::checkIsIn(playerRect, c->getPosition())) {
+                getGame()->audio().getPermanentSound("coin_pickup")->play();
+
+                c->pickUp();
+                m_coinCounter++;
+                m_hud->getObserverScore()->notify(m_coinCounter);
+
+                c->getDrawable()->flash(0.39f, jt::Color { 255, 255, 255, 150 });
+                auto twa = jt::TweenAlpha::create(c->getDrawable(), 0.4f, 255, 0);
+                add(twa);
+
+                auto tws = jt::TweenScale::create(c->getDrawable(), 0.4f,
+                    jt::Vector2f { 1.0f, 1.0f }, jt::Vector2f { 3.0f, 3.0f });
+                tws->addCompleteCallback([c]() { c->kill(); });
+                add(tws);
+            }
+        }
     }
 }
 
@@ -245,6 +258,7 @@ void StateGame::doInternalDraw() const
     m_walkParticles->draw();
     m_playerJumpParticles->draw();
     m_vignette->draw();
+    m_hud->draw();
 }
 
 void StateGame::createPlayer()

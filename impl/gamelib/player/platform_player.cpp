@@ -20,7 +20,6 @@ void Player::doCreate()
     m_animation->loadFromJson("assets/player/Player.json", textureManager());
     m_animation->play("Idle");
     m_animation->setOffset(jt::OffsetMode::CENTER);
-
     b2FixtureDef fixtureDef;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;

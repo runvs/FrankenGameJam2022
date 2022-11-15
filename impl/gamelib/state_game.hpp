@@ -23,12 +23,14 @@ class Hud;
 
 class StateGame : public jt::GameState {
 public:
-    StateGame(std::string const& levelName = "level_0.json", std::string const& targetId = "0");
+    StateGame(std::string const& levelName = "level_0.json", std::string const& targetId = "0",
+        int coinCounter = 0);
 
 private:
     std::shared_ptr<jt::SoundInterface> m_music;
 
     std::shared_ptr<jt::Box2DWorldInterface> m_world { nullptr };
+    std::shared_ptr<Hud> m_hud { nullptr };
 
     std::string m_levelName { "" };
     std::string m_targetId { "0" };
@@ -60,6 +62,7 @@ private:
     void createPlayerJumpParticleSystem();
     void clampCameraPositionToLevel() const;
     void createPortalParticleSystem();
+    void updateCoins();
 };
 
 #endif
