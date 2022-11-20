@@ -67,7 +67,7 @@ void StateGame::doInternalCreate()
         auto effect = oalpp::effects::utility::Gain { 1.0f };
         m_music = getGame()->audio().addPermanentSound("main_music",
             "assets/music/main_music_intro.ogg", "assets/music/main_music.ogg", effect);
-        m_music->setVolume(0.2f);
+        m_music->setVolume(GP::MusicVolume());
         m_music->play();
     } else {
         m_music = getGame()->audio().getPermanentSound("main_music");
