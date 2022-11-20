@@ -63,6 +63,10 @@ void StateGame::doInternalCreate()
         getGame()->audio().addPermanentSound("coin_pickup", "assets/sound/player_pickup.ogg");
     }
 
+    if (getGame()->audio().getPermanentSound("player_death") == nullptr) {
+        getGame()->audio().addPermanentSound("player_death", "assets/sound/char_death.ogg");
+    }
+
     if (getGame()->audio().getPermanentSound("main_music") == nullptr) {
         auto effect = oalpp::effects::utility::Gain { 1.0f };
         m_music = getGame()->audio().addPermanentSound("main_music",
@@ -157,6 +161,7 @@ void StateGame::updateCoins()
 void StateGame::endGame()
 {
     if (!m_ending) {
+        getGame()->audio().getPermanentSound("player_death")->play();
         m_ending = true;
         m_coinCounter -= 10;
         if (m_coinCounter < 0) {
