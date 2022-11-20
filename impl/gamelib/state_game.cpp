@@ -160,6 +160,7 @@ void StateGame::endGame()
         m_ending = true;
         m_coinCounter -= 10;
         if (m_coinCounter < 0) {
+            m_music->stop();
             getGame()->stateManager().switchState(std::make_shared<StateMenu>());
         } else {
             getGame()->stateManager().switchState(
