@@ -36,7 +36,7 @@ void StateMenu::doInternalCreate()
 
     m_menuMusic = getGame()->audio().addPermanentSound("menu_music", "assets/music/menu_music.ogg");
     m_menuMusic->setLoop(true);
-    m_menuMusic->setVolume(GP::MusicVolume());
+    m_menuMusic->setVolume(GP::MenuMusicVolume());
     m_menuMusic->play();
 }
 

@@ -61,6 +61,7 @@ void StateGame::doInternalCreate()
 
     if (getGame()->audio().getPermanentSound("coin_pickup") == nullptr) {
         getGame()->audio().addPermanentSound("coin_pickup", "assets/sound/player_pickup.ogg");
+        getGame()->audio().getPermanentSound("coin_pickup")->setVolume(0.8f);
     }
 
     if (getGame()->audio().getPermanentSound("player_death") == nullptr) {

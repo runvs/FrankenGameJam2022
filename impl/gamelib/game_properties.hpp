@@ -43,6 +43,7 @@ public:
     static int getPersistentValue(std::string const& key);
 
     static float MusicVolume() { return 0.7f; };
+    static float MenuMusicVolume() { return 0.85f; }
 
     static void setPersistentValue(std::string const& key, int value);
 
